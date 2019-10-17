@@ -1,5 +1,3 @@
 {
-  "extends": ["tslint-react"],
-  "exclude": ["node_modules"],
-  "rules": {}
+  "extends": ["tslint-react"]
 }
