@@ -23,10 +23,12 @@ const Category: React.FC<Props> = ({category}) => {
     category.items[index].isChecked = !category.items[index].isChecked;
   };
   const catItems = category.items.map((item: Item, index: number) => (
-    <IonItem
-      key={`${category.name}:${item.name}`}
-      onClick={(e) => clickItem(index)}>
-      <IonCheckbox slot="start" checked={item.isChecked} />
+    <IonItem key={`${category.name}:${item.name}`}>
+      <IonCheckbox
+        slot="start"
+        checked={item.isChecked}
+        onClick={(e) => clickItem(index)}
+      />
       <IonLabel>
         <h1>{item.name}</h1>
         <IonNote>{item.quantity}</IonNote>
