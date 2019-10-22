@@ -2,4 +2,4 @@
 
 ## [app link](#)
 
-Still deciding on which framework to use with Ionic
+Still building with Ionic and React. Check back later!
