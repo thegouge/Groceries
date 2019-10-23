@@ -7,6 +7,7 @@ import {
   IonFab,
   IonFabButton,
   IonIcon,
+  IonButton,
 } from "@ionic/react";
 import React, {useState} from "react";
 import {add} from "ionicons/icons";
@@ -58,6 +59,19 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     setCatList(newItem);
   };
 
+  const removeChecked = () => {
+    setCatList(
+      catList.map((category: CategoryClass) => {
+        return {
+          ...category,
+          items: category.items.filter((item: Item) => {
+            return !item.isChecked;
+          }),
+        };
+      })
+    );
+  };
+
   const categoryList = catList.map((category: CategoryClass) => (
     <Category
       checkItem={checkItem}
@@ -71,6 +85,9 @@ const Home: React.FC<RouteComponentProps> = (props) => {
       <IonHeader>
         <IonToolbar>
           <IonTitle slot="start">Learning Ionic</IonTitle>
+          <IonButton slot="end" onClick={removeChecked}>
+            Remove Checked
+          </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent>
