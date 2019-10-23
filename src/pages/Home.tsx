@@ -49,6 +49,12 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     },
   ]);
 
+  const [removing, setRemove] = useState(false);
+
+  const addCat = () => {};
+
+  const addItem = () => {};
+
   const checkItem = (cat: number, i: number): void => {
     const oldItem = catList[cat].items[i];
     const newItem = [...catList];
@@ -60,22 +66,27 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   };
 
   const removeChecked = () => {
-    setCatList(
-      catList.map((category: CategoryClass) => {
-        return {
-          ...category,
-          items: category.items.filter((item: Item) => {
-            return !item.isChecked;
-          }),
-        };
-      })
-    );
+    setRemove(true);
+    setTimeout(() => {
+      setCatList(
+        catList.map((category: CategoryClass) => {
+          return {
+            ...category,
+            items: category.items.filter((item: Item) => {
+              return !item.isChecked;
+            }),
+          };
+        })
+      );
+      setRemove(false);
+    }, 400);
   };
 
   const categoryList = catList.map((category: CategoryClass) => (
     <Category
       checkItem={checkItem}
       category={category}
+      removing={removing}
       key={`${category.name}-card`}
     />
   ));
@@ -85,6 +96,8 @@ const Home: React.FC<RouteComponentProps> = (props) => {
       <IonHeader>
         <IonToolbar>
           <IonTitle slot="start">Learning Ionic</IonTitle>
+        </IonToolbar>
+        <IonToolbar>
           <IonButton slot="end" onClick={removeChecked}>
             Remove Checked
           </IonButton>
