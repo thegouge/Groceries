@@ -11,7 +11,7 @@ import {
 import React, {useState} from "react";
 import {add} from "ionicons/icons";
 import {RouteComponentProps} from "react-router";
-import {CategoryClass} from "../lib/interfaces";
+import {CategoryClass, Item} from "../lib/interfaces";
 import Category from "../components/category";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
@@ -47,8 +47,23 @@ const Home: React.FC<RouteComponentProps> = (props) => {
       ],
     },
   ]);
+
+  const checkItem = (cat: number, i: number): void => {
+    const oldItem = catList[cat].items[i];
+    const newItem = [...catList];
+    newItem[cat].items.splice(i, 1, {
+      ...oldItem,
+      isChecked: !oldItem.isChecked,
+    });
+    setCatList(newItem);
+  };
+
   const categoryList = catList.map((category: CategoryClass) => (
-    <Category category={category} key={`${category.name}-card`} />
+    <Category
+      checkItem={checkItem}
+      category={category}
+      key={`${category.name}-card`}
+    />
   ));
 
   return (
