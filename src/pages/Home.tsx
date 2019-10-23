@@ -14,40 +14,10 @@ import {add} from "ionicons/icons";
 import {RouteComponentProps} from "react-router";
 import {CategoryClass, Item} from "../lib/interfaces";
 import Category from "../components/category";
+import {testList} from "../lib/data";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
-  const [catList, setCatList] = useState([
-    {
-      id: 0,
-      name: "Category Name",
-      items: [
-        {
-          id: 0,
-          name: "create Idea",
-          quantity: "run idea by Brandy",
-          isChecked: false,
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Bulk Items",
-      items: [
-        {
-          id: 0,
-          name: "Rice",
-          quantity: "2lbs",
-          isChecked: false,
-        },
-        {
-          id: 1,
-          name: "Peanut Butter",
-          quantity: "All",
-          isChecked: false,
-        },
-      ],
-    },
-  ]);
+  const [catList, setCatList] = useState(testList);
 
   const [removing, setRemove] = useState(false);
 
