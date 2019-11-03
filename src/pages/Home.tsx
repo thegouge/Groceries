@@ -13,6 +13,7 @@ import {
   IonList,
   IonItem,
   IonMenuButton,
+  IonButtons,
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
 import React, {useState} from "react";
@@ -81,33 +82,15 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonMenuButton />
+          <IonMenuButton slot="start" />
           <IonTitle slot="start">Learning Ionic</IonTitle>
-          <IonButton slot="end" onClick={removeChecked}>
-            Remove Checked
-          </IonButton>
-          <IonButton slot="end" onClick={toggleCatReorder}>
-            Edit Categories
-          </IonButton>
+          <IonButtons slot="end">
+            <IonButton onClick={removeChecked}>Remove Checked</IonButton>
+            <IonButton onClick={toggleCatReorder}>Edit Categories</IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonMenu contentId="whut">
-          <IonHeader>
-            <IonToolbar color="primary">
-              <IonTitle>Start Menu</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
-            <IonList>
-              <IonItem>Menu Item</IonItem>
-              <IonItem>Menu Item</IonItem>
-              <IonItem>Menu Item</IonItem>
-              <IonItem>Menu Item</IonItem>
-              <IonItem>Menu Item</IonItem>
-            </IonList>
-          </IonContent>
-        </IonMenu>
         <IonReorderGroup onIonItemReorder={doReorder}>
           {categoryList}
         </IonReorderGroup>
