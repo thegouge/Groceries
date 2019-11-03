@@ -86,7 +86,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
           <IonTitle slot="start">Learning Ionic</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={removeChecked}>Remove Checked</IonButton>
-            <IonButton onClick={toggleCatReorder}>Edit Categories</IonButton>
+            <IonButton onClick={toggleCatReorder}>Edit</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>

@@ -16,26 +16,38 @@ import {home} from "ionicons/icons";
 
 import {testList} from "../lib/defaultData";
 
-const Menu: React.FunctionComponent = () => (
-  <IonMenu contentId="main">
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Menu</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent>
-      <IonList>
-        <IonItem>
-          <IonIcon icon={home} />
-        </IonItem>
-        {testList.map((category) => (
-          <IonItem key={category.id}>
-            <IonLabel>{category.name}</IonLabel>
-          </IonItem>
-        ))}
-      </IonList>
-    </IonContent>
-  </IonMenu>
-);
+const Menu: React.FunctionComponent = () => {
+  // const navigateTo = (url) => {
+  //   history.push(url);
+  // };
+
+  return (
+    <IonMenu contentId="main">
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Menu</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <IonList>
+          <IonMenuToggle autoHide={false}>
+            <IonItem routerLink="/home">
+              <IonIcon icon={home} />
+            </IonItem>
+          </IonMenuToggle>
+          {testList.map((category) => (
+            <IonMenuToggle key={category.id}>
+              <IonItem
+                routerLink={`/category/${category.id}`}
+                routerDirection="none">
+                <IonLabel>{category.name}</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+          ))}
+        </IonList>
+      </IonContent>
+    </IonMenu>
+  );
+};
 
 export default withRouter(Menu);

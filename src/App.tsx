@@ -38,6 +38,7 @@ import NewItem from "./pages/newItem";
 import Menu from "./components/Menu";
 
 import "./global.css";
+import CategoryPage from "./pages/CategoryPage";
 
 const App: React.FC = () => (
   <IonApp>
@@ -45,8 +46,9 @@ const App: React.FC = () => (
       <IonSplitPane id="nav" contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <Route path="/home" component={Home} exact={true} />
-          <Route path="/new" component={NewItem} exact={true} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/new" component={NewItem} />
+          <Route exact path="/category/:id" component={CategoryPage} />
           <Redirect exact from="/" to="/home" />
         </IonRouterOutlet>
       </IonSplitPane>
