@@ -9,9 +9,6 @@ import {
   IonIcon,
   IonButton,
   IonReorderGroup,
-  IonMenu,
-  IonList,
-  IonItem,
   IonMenuButton,
   IonButtons,
 } from "@ionic/react";

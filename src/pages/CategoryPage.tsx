@@ -7,8 +7,6 @@ import {
   IonToolbar,
   IonMenuButton,
   IonTitle,
-  IonButtons,
-  IonButton,
 } from "@ionic/react";
 
 import {testList} from "../lib/defaultData";

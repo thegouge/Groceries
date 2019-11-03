@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 import React from "react";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {home} from "ionicons/icons";
+import {home, settings} from "ionicons/icons";
 
 import {testList} from "../lib/defaultData";
 
@@ -32,7 +32,8 @@ const Menu: React.FunctionComponent = () => {
         <IonList>
           <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/home">
-              <IonIcon icon={home} />
+              <IonIcon slot="start" icon={home} />
+              <IonLabel>All</IonLabel>
             </IonItem>
           </IonMenuToggle>
           {testList.map((category) => (
@@ -44,6 +45,12 @@ const Menu: React.FunctionComponent = () => {
               </IonItem>
             </IonMenuToggle>
           ))}
+          <IonMenuToggle autoHide={false}>
+            <IonItem routerLink="/settings">
+              <IonIcon slot="start" icon={settings} />
+              <IonLabel>Settings</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>
