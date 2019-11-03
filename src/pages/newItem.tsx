@@ -13,49 +13,56 @@ import {
   IonInput,
   IonSelect,
   IonSelectOption,
+  IonCard,
+  IonButton,
+  IonCardHeader,
+  IonCardTitle,
 } from "@ionic/react";
 import React, {useState} from "react";
-import {CategoryClass} from "../lib/interfaces";
 
-import {testList} from "../lib/data";
+import {testList} from "../lib/defaultData";
 
 const NewItem: React.FC = (props) => {
   const catList = testList;
   const [isItem, setItem] = useState(true);
-  const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [catIndex, setCatIndex] = useState("");
+  const [input, setInput] = useState({});
 
-  let newForm;
-  if (isItem) {
-    const categoryOptions = catList.map((category) => (
-      <IonSelectOption key={category.name} value={category.id}>
-        {category.name}
-      </IonSelectOption>
-    ));
-    newForm = (
-      <form>
-        <IonItem>
-          <IonLabel position="floating">Grocery Name</IonLabel>
-          <IonInput></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel position="floating">Quantity</IonLabel>
-          <IonInput></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Category</IonLabel>
-          <IonSelect
-            interface="popover"
-            onIonChange={(e) => console.log(e.target)}>
-            {categoryOptions}
-            <IonSelectOption value="new">New Category</IonSelectOption>
-          </IonSelect>
-        </IonItem>
-      </form>
-    );
-  } else {
-  }
+  const addInput = () => {
+    console.log("form submit!");
+  };
+
+  const newForm = isItem ? (
+    <form>
+      <IonItem>
+        <IonLabel position="floating">Grocery Name</IonLabel>
+        <IonInput></IonInput>
+      </IonItem>
+      <IonItem>
+        <IonLabel position="floating">Quantity</IonLabel>
+        <IonInput></IonInput>
+      </IonItem>
+      <IonItem>
+        <IonLabel>Category</IonLabel>
+        <IonSelect
+          interface="popover"
+          onIonChange={(e) => console.log(e.target)}>
+          {catList.map((category) => (
+            <IonSelectOption key={category.name} value={category.id}>
+              {category.name}
+            </IonSelectOption>
+          ))}
+          <IonSelectOption value="new">New Category</IonSelectOption>
+        </IonSelect>
+      </IonItem>
+    </form>
+  ) : (
+    <form>
+      <IonItem>
+        <IonLabel position="floating">Category Name</IonLabel>
+        <IonInput></IonInput>
+      </IonItem>
+    </form>
+  );
 
   return (
     <IonPage>
@@ -75,7 +82,19 @@ const NewItem: React.FC = (props) => {
           </IonSegmentButton>
         </IonSegment>
       </IonHeader>
-      <IonContent>{newForm}</IonContent>
+      <IonContent>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle></IonCardTitle>
+          </IonCardHeader>
+          {newForm}
+          <IonItem>
+            <IonButton slot="end" onClick={addInput}>
+              Submit
+            </IonButton>
+          </IonItem>
+        </IonCard>
+      </IonContent>
     </IonPage>
   );
 };

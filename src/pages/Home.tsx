@@ -8,18 +8,24 @@ import {
   IonFabButton,
   IonIcon,
   IonButton,
+  IonReorderGroup,
+  IonMenu,
+  IonList,
+  IonItem,
+  IonMenuButton,
 } from "@ionic/react";
+import {ItemReorderEventDetail} from "@ionic/core";
 import React, {useState} from "react";
 import {add} from "ionicons/icons";
 import {RouteComponentProps} from "react-router";
 import {CategoryClass, Item} from "../lib/interfaces";
 import Category from "../components/category";
-import {testList} from "../lib/data";
+import {testList} from "../lib/defaultData";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
   const [catList, setCatList] = useState(testList);
-
   const [removing, setRemove] = useState(false);
+  const [isCatReorder, setCatReorder] = useState(false);
 
   const addCat = () => {};
 
@@ -52,12 +58,22 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     }, 400);
   };
 
+  const toggleCatReorder = () => {
+    setCatReorder(!isCatReorder);
+  };
+
+  const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
+    console.log("Dragged from index", event.detail.from, "to", event.detail.to);
+    event.detail.complete();
+  };
+
   const categoryList = catList.map((category: CategoryClass) => (
     <Category
       checkItem={checkItem}
       category={category}
       removing={removing}
       key={`${category.name}-card`}
+      isCatReorder={isCatReorder}
     />
   ));
 
@@ -65,16 +81,36 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonMenuButton />
           <IonTitle slot="start">Learning Ionic</IonTitle>
-        </IonToolbar>
-        <IonToolbar>
           <IonButton slot="end" onClick={removeChecked}>
             Remove Checked
+          </IonButton>
+          <IonButton slot="end" onClick={toggleCatReorder}>
+            Edit Categories
           </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {categoryList}
+        <IonMenu contentId="whut">
+          <IonHeader>
+            <IonToolbar color="primary">
+              <IonTitle>Start Menu</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent>
+            <IonList>
+              <IonItem>Menu Item</IonItem>
+              <IonItem>Menu Item</IonItem>
+              <IonItem>Menu Item</IonItem>
+              <IonItem>Menu Item</IonItem>
+              <IonItem>Menu Item</IonItem>
+            </IonList>
+          </IonContent>
+        </IonMenu>
+        <IonReorderGroup onIonItemReorder={doReorder}>
+          {categoryList}
+        </IonReorderGroup>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={() => props.history.push("/new")}>
             <IonIcon icon={add} />
