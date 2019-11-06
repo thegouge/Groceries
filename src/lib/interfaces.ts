@@ -2,6 +2,7 @@ export interface CategoryClass {
   id: number;
   name: string;
   items: Item[];
+  // icon: any;
 }
 
 export interface Item {

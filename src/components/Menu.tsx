@@ -16,45 +16,38 @@ import {home, settings} from "ionicons/icons";
 
 import {testList} from "../lib/defaultData";
 
-const Menu: React.FunctionComponent = () => {
-  // const navigateTo = (url) => {
-  //   history.push(url);
-  // };
-
-  return (
-    <IonMenu contentId="main">
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Menu</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonList>
-          <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/home">
-              <IonIcon slot="start" icon={home} />
-              <IonLabel>All</IonLabel>
+const Menu: React.FunctionComponent = () => (
+  <IonMenu contentId="main">
+    <IonHeader>
+      <IonToolbar>
+        <IonTitle>Menu</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent>
+      <IonList>
+        <IonMenuToggle autoHide={false}>
+          <IonItem routerLink="/home" routerDirection="back">
+            <IonIcon slot="start" icon={home} />
+            <IonLabel>All</IonLabel>
+          </IonItem>
+        </IonMenuToggle>
+        {testList.map((category) => (
+          <IonMenuToggle key={category.id} autoHide={false}>
+            <IonItem routerLink={`/category/${category.id}`}>
+              {/* <IonIcon icon={category.icon} /> */}
+              <IonLabel>{category.name}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          {testList.map((category) => (
-            <IonMenuToggle key={category.id}>
-              <IonItem
-                routerLink={`/category/${category.id}`}
-                routerDirection="none">
-                <IonLabel>{category.name}</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-          ))}
-          <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/settings">
-              <IonIcon slot="start" icon={settings} />
-              <IonLabel>Settings</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
-        </IonList>
-      </IonContent>
-    </IonMenu>
-  );
-};
+        ))}
+        <IonMenuToggle autoHide={false}>
+          <IonItem routerLink="/settings">
+            <IonIcon slot="start" icon={settings} />
+            <IonLabel>Settings</IonLabel>
+          </IonItem>
+        </IonMenuToggle>
+      </IonList>
+    </IonContent>
+  </IonMenu>
+);
 
 export default withRouter(Menu);

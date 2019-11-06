@@ -91,11 +91,6 @@ const Home: React.FC<RouteComponentProps> = (props) => {
         <IonReorderGroup onIonItemReorder={doReorder}>
           {categoryList}
         </IonReorderGroup>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => props.history.push("/new")}>
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
       </IonContent>
     </IonPage>
   );

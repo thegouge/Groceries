@@ -10,7 +10,6 @@ import {
 } from "@ionic/react";
 
 import {testList} from "../lib/defaultData";
-import Category from "../components/category";
 
 interface queryProps {
   id: string;
