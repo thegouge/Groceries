@@ -92,14 +92,20 @@ const NewItem: React.FC = (props) => {
             <IonInput></IonInput>
           </IonItem>
 
-          <IonItem style={{backgroundColor: catColor}}>
+          <IonItem>
+            <div
+              className="color-picker-interior"
+              style={{backgroundColor: catColor}}
+              onClick={() => setShowModal(true)}>
+              <IonLabel>Category Color</IonLabel>
+              <IonInput>{catColor}</IonInput>
+            </div>
             <IonModal isOpen={showModal}>
               <Colors catColor={catColor} setCatColor={setCatColor} />
               <IonButton onClick={() => setShowModal(false)}>
                 Close Modal
               </IonButton>
             </IonModal>
-            <IonButton onClick={() => setShowModal(true)}>Pick Color</IonButton>
           </IonItem>
         </form>
       );

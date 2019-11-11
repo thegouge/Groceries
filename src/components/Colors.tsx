@@ -8,6 +8,7 @@ import {
   IonCard,
   IonLabel,
   IonItem,
+  IonInput,
 } from "@ionic/react";
 
 import {colorList} from "../lib/defaultData";
@@ -43,11 +44,14 @@ const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
         <h3>Color Picker</h3>
       </IonHeader>
       <IonGrid>{colorGrid}</IonGrid>
-      {catColor !== "#FFFFFF" && (
-        <div className="color" style={{backgroundColor: catColor}}>
-          <p>{catColor}</p>
-        </div>
-      )}
+      <div className="color" style={{backgroundColor: catColor}}>
+        <IonInput
+          value={catColor}
+          debounce={500}
+          minlength={7}
+          maxlength={7}
+          onIonChange={(e: any) => setCatColor(e.detail.value)}></IonInput>
+      </div>
     </div>
   );
 };

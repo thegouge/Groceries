@@ -11,7 +11,7 @@ export const colorList = [
   ["#4C0099", "#6600CC", "#7F00FF", "#9933FF", "#B266FF", "#CC99FF"],
   ["#990099", "#CC00CC", "#FF00FF", "#FF33FF", "#FF66FF", "#FF99FF"],
   ["#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC"],
-  ["#404040", "#606060", "#808080", "#A0A0A0", "#C0C0C0", "#E0E0E0"],
+  ["#606060", "#808080", "#A0A0A0", "#C0C0C0", "#E0E0E0", "#FFFFFF"],
 ];
 
 export const testList = [
