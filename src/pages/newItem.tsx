@@ -98,7 +98,7 @@ const NewItem: React.FC = (props) => {
               style={{backgroundColor: catColor}}
               onClick={() => setShowModal(true)}>
               <IonLabel>Category Color</IonLabel>
-              <IonInput>{catColor}</IonInput>
+              <IonInput readonly={true}>{catColor}</IonInput>
             </div>
             <IonModal isOpen={showModal}>
               <Colors catColor={catColor} setCatColor={setCatColor} />

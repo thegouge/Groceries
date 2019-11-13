@@ -46,6 +46,7 @@ const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
       <IonGrid>{colorGrid}</IonGrid>
       <div className="color" style={{backgroundColor: catColor}}>
         <IonInput
+          readonly={true}
           value={catColor}
           debounce={500}
           minlength={7}

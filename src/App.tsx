@@ -39,19 +39,25 @@ import Settings from "./pages/Settings";
 import {add} from "ionicons/icons";
 
 import "./App.css";
+import {CategoryProvider} from "./context/categoryContext";
+import {ItemProvider} from "./context/itemContext";
 
 const App: React.FC = (props) => (
   <IonApp>
     <IonReactRouter>
       <IonSplitPane contentId="main">
-        <Menu />
-        <IonRouterOutlet id="main">
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/new" component={NewItem} />
-          <Route exact path="/category/:id" component={CategoryPage} />
-          <Route exact path="/settings" component={Settings} />
-          <Redirect exact from="/" to="/home" />
-        </IonRouterOutlet>
+        <CategoryProvider>
+          <ItemProvider>
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/new" component={NewItem} />
+              <Route exact path="/category/:id" component={CategoryPage} />
+              <Route exact path="/settings" component={Settings} />
+              <Redirect exact from="/" to="/home" />
+            </IonRouterOutlet>
+          </ItemProvider>
+        </CategoryProvider>
       </IonSplitPane>
       <IonFab vertical="bottom" horizontal="end" slot="fixed">
         <IonFabButton routerLink="/new">

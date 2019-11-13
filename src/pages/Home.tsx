@@ -13,17 +13,19 @@ import {
   IonButtons,
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {add} from "ionicons/icons";
 import {RouteComponentProps} from "react-router";
 import {CategoryClass, Item} from "../lib/interfaces";
 import Category from "../components/category";
-import {testList} from "../lib/defaultData";
+import {CategoryContext} from "../context/categoryContext";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
-  const [catList, setCatList] = useState(testList);
+  const [catList, setCatList] = useContext(CategoryContext);
   const [removing, setRemove] = useState(false);
   const [isCatReorder, setCatReorder] = useState(false);
+
+  console.log(catList);
 
   const addCat = () => {};
 

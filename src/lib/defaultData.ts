@@ -21,6 +21,7 @@ export const testList = [
     items: [
       {
         id: 0,
+        catId: 0,
         name: "create Idea",
         quantity: "run idea by Brandy",
         isChecked: false,
@@ -32,17 +33,43 @@ export const testList = [
     name: "Bulk Items",
     items: [
       {
-        id: 0,
+        id: 1,
+        catId: 1,
         name: "Rice",
         quantity: "2lbs",
         isChecked: false,
       },
       {
-        id: 1,
+        id: 2,
+        catId: 1,
         name: "Peanut Butter",
         quantity: "All",
         isChecked: false,
       },
     ],
+  },
+];
+
+export const itemList = [
+  {
+    id: 0,
+    catId: 0,
+    name: "create Idea",
+    quantity: "run idea by Brandy",
+    isChecked: false,
+  },
+  {
+    id: 1,
+    catId: 1,
+    name: "Rice",
+    quantity: "2lbs",
+    isChecked: false,
+  },
+  {
+    id: 2,
+    catId: 1,
+    name: "Peanut Butter",
+    quantity: "All",
+    isChecked: false,
   },
 ];
