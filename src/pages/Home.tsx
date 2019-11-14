@@ -1,51 +1,51 @@
+/* Core Framework Stuff */
+import React, {useState, useContext} from "react";
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
-  IonFab,
-  IonFabButton,
-  IonIcon,
   IonButton,
   IonReorderGroup,
   IonMenuButton,
   IonButtons,
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
-import React, {useState, useContext} from "react";
-import {add} from "ionicons/icons";
 import {RouteComponentProps} from "react-router";
+
+/* Data Init */
 import {CategoryClass, Item} from "../lib/interfaces";
+import {CategoryContext} from "../context";
+
+/* Components */
 import Category from "../components/category";
-import {CategoryContext} from "../context/categoryContext";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
-  const [catList, setCatList] = useContext(CategoryContext);
+  const {categoriesList, setCategoriesList} = useContext(CategoryContext);
   const [removing, setRemove] = useState(false);
   const [isCatReorder, setCatReorder] = useState(false);
-
-  console.log(catList);
 
   const addCat = () => {};
 
   const addItem = () => {};
 
   const checkItem = (cat: number, i: number): void => {
-    const oldItem = catList[cat].items[i];
-    const newItem = [...catList];
+    console.log(cat);
+    const oldItem = categoriesList[cat].items[i];
+    const newItem = [...categoriesList];
     newItem[cat].items.splice(i, 1, {
       ...oldItem,
       isChecked: !oldItem.isChecked,
     });
-    setCatList(newItem);
+    setCategoriesList(newItem);
   };
 
   const removeChecked = () => {
     setRemove(true);
     setTimeout(() => {
-      setCatList(
-        catList.map((category: CategoryClass) => {
+      setCategoriesList(
+        categoriesList.map((category: CategoryClass) => {
           return {
             ...category,
             items: category.items.filter((item: Item) => {
@@ -67,7 +67,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     event.detail.complete();
   };
 
-  const categoryList = catList.map((category: CategoryClass) => (
+  const categoryList = categoriesList.map((category: CategoryClass) => (
     <Category
       checkItem={checkItem}
       category={category}

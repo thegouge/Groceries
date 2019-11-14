@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {
   IonPage,
@@ -9,14 +9,15 @@ import {
   IonTitle,
 } from "@ionic/react";
 
-import {testList} from "../lib/defaultData";
+import {CategoryContext} from "../context";
 
 interface queryProps {
   id: string;
 }
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
-  const selectedCategory = testList.find(
+  const {categoriesList} = useContext(CategoryContext);
+  const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
 

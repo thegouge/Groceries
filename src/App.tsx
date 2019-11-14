@@ -28,19 +28,22 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+/* Pages */
 import Home from "./pages/Home";
 import NewItem from "./pages/newItem";
-
-import Menu from "./components/Menu";
-
-import "./global.css";
 import CategoryPage from "./pages/CategoryPage";
 import Settings from "./pages/Settings";
-import {add} from "ionicons/icons";
 
-import "./App.css";
-import {CategoryProvider} from "./context/categoryContext";
-import {ItemProvider} from "./context/itemContext";
+/* Seperate Components */
+import Menu from "./components/Menu";
+
+/* Context */
+import {CategoryProvider} from "./context";
+import {ItemProvider} from "./context";
+
+/* custom Styles */
+import "./global.css";
+import {add} from "ionicons/icons";
 
 const App: React.FC = (props) => (
   <IonApp>
@@ -67,5 +70,4 @@ const App: React.FC = (props) => (
     </IonReactRouter>
   </IonApp>
 );
-
 export default App;

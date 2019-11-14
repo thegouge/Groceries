@@ -1,3 +1,11 @@
+export interface User {
+  accessId: string;
+  admin: boolean;
+  name: string;
+  categories: CategoryClass[];
+  items: Item[];
+}
+
 export interface CategoryClass {
   id: number;
   name: string;

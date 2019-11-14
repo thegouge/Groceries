@@ -73,3 +73,13 @@ export const itemList = [
     isChecked: false,
   },
 ];
+
+export const userList = [
+  {
+    accessId: "a1exP@ssWord",
+    admin: true,
+    name: "Alex",
+    categories: testList,
+    items: itemList,
+  },
+];

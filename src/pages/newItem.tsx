@@ -19,14 +19,13 @@ import {
   IonCardTitle,
   IonModal,
 } from "@ionic/react";
-import React, {useState} from "react";
-import * as iconList from "ionicons/icons";
+import React, {useState, useContext} from "react";
 
-import {testList} from "../lib/defaultData";
 import Colors from "../components/Colors";
+import {CategoryContext} from "../context";
 
 const NewItem: React.FC = (props) => {
-  const catList = testList;
+  const {categoriesList} = useContext(CategoryContext);
   const [addType, setAddType] = useState("grocery");
   const [input, setInput] = useState({});
   const [newCat, setNewCat] = useState("");
@@ -64,12 +63,12 @@ const NewItem: React.FC = (props) => {
             <IonSelect
               interface="popover"
               onIonChange={updateCategorySelection}>
-              {catList.map((category) => (
+              {categoriesList.map((category) => (
                 <IonSelectOption key={category.name} value={category.id}>
                   {category.name}
                 </IonSelectOption>
               ))}
-              <IonSelectOption value="new">New Category</IonSelectOption>
+              <IonSelectOption value="new">Make new Category</IonSelectOption>
             </IonSelect>
           </IonItem>
         </form>
@@ -77,9 +76,8 @@ const NewItem: React.FC = (props) => {
       break;
 
     case "category":
-      const renderedList: any[] = [];
-
       // TODO: add an icon picker for Category
+      // const renderedList: any[] = [];
       // for (let icon in iconList) {
       //   const renderedIcon: any = iconList[icon];
       //   renderedList.push(renderedIcon);
