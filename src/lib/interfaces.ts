@@ -9,8 +9,7 @@ export interface User {
 export interface CategoryClass {
   id: number;
   name: string;
-  items: Item[];
-  // color: string;
+  color: string;
   // icon: any;
 }
 

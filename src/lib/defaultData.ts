@@ -17,36 +17,13 @@ export const colorList = [
 export const testList = [
   {
     id: 0,
-    name: "Category Name",
-    items: [
-      {
-        id: 0,
-        catId: 0,
-        name: "create Idea",
-        quantity: "run idea by Brandy",
-        isChecked: false,
-      },
-    ],
+    name: "Starting Category",
+    color: "#3399FF",
   },
   {
     id: 1,
-    name: "Bulk Items",
-    items: [
-      {
-        id: 1,
-        catId: 1,
-        name: "Rice",
-        quantity: "2lbs",
-        isChecked: false,
-      },
-      {
-        id: 2,
-        catId: 1,
-        name: "Peanut Butter",
-        quantity: "All",
-        isChecked: false,
-      },
-    ],
+    name: "Bulk Foods",
+    color: "#999900",
   },
 ];
 
@@ -54,8 +31,8 @@ export const itemList = [
   {
     id: 0,
     catId: 0,
-    name: "create Idea",
-    quantity: "run idea by Brandy",
+    name: "press the '+' button to add a new item/category",
+    quantity: "click on items to 'check' them",
     isChecked: false,
   },
   {
@@ -69,7 +46,7 @@ export const itemList = [
     id: 2,
     catId: 1,
     name: "Peanut Butter",
-    quantity: "All",
+    quantity: "69lbs",
     isChecked: false,
   },
 ];

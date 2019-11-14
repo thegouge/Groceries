@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {
   IonCard,
   IonCardHeader,
@@ -14,6 +14,7 @@ import {
 
 import {CategoryClass, Item} from "../lib/interfaces";
 import {reorder} from "ionicons/icons";
+import {ItemContext} from "../context";
 
 interface Props {
   category: CategoryClass;
@@ -28,22 +29,25 @@ const Category: React.FC<Props> = ({
   removing,
   isCatReorder,
 }) => {
-  const catItems = category.items.map((item: Item, index: number) => (
-    <IonItem
-      key={`${category.name}:${item.name}`}
-      className={removing && item.isChecked ? "flying" : ""}>
-      <IonCheckbox
-        slot="start"
-        onClick={() => checkItem(category.id, index)}
-        checked={item.isChecked}
-        disabled={isCatReorder}
-      />
-      <IonLabel className={item.isChecked ? "checked" : ""}>
-        <h2>{item.name}</h2>
-        <IonNote>{item.quantity}</IonNote>
-      </IonLabel>
-    </IonItem>
-  ));
+  const {itemsList} = useContext(ItemContext);
+  const catItems = itemsList
+    .filter((item) => item.catId === category.id)
+    .map((item: Item, index: number) => (
+      <IonItem
+        key={`${category.name}:${item.name}`}
+        className={removing && item.isChecked ? "flying" : ""}>
+        <IonCheckbox
+          slot="start"
+          onClick={() => checkItem(item.id)}
+          checked={item.isChecked}
+          disabled={isCatReorder}
+        />
+        <IonLabel className={item.isChecked ? "checked" : ""}>
+          <h2>{item.name}</h2>
+          <IonNote>{item.quantity}</IonNote>
+        </IonLabel>
+      </IonItem>
+    ));
 
   const categoryCard = (
     <IonCard>

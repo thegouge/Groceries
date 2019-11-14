@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
 import {
   IonApp,
@@ -32,6 +32,7 @@ import "./theme/variables.css";
 import Home from "./pages/Home";
 import NewItem from "./pages/newItem";
 import CategoryPage from "./pages/CategoryPage";
+import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 
 /* Seperate Components */
@@ -45,29 +46,34 @@ import {ItemProvider} from "./context";
 import "./global.css";
 import {add} from "ionicons/icons";
 
-const App: React.FC = (props) => (
-  <IonApp>
-    <IonReactRouter>
-      <IonSplitPane contentId="main">
-        <CategoryProvider>
-          <ItemProvider>
-            <Menu />
-            <IonRouterOutlet id="main">
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/new" component={NewItem} />
-              <Route exact path="/category/:id" component={CategoryPage} />
-              <Route exact path="/settings" component={Settings} />
-              <Redirect exact from="/" to="/home" />
-            </IonRouterOutlet>
-          </ItemProvider>
-        </CategoryProvider>
-      </IonSplitPane>
-      <IonFab vertical="bottom" horizontal="end" slot="fixed">
-        <IonFabButton routerLink="/new">
-          <IonIcon icon={add} />
-        </IonFabButton>
-      </IonFab>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = (props) => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <CategoryProvider>
+            <ItemProvider>
+              <Menu />
+              <IonRouterOutlet id="main">
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/new" component={NewItem} />
+                <Route exact path="/category/:id" component={CategoryPage} />
+                <Route exact path="/settings" component={Settings} />
+                <Route exact path="/login" component={Login} />
+                <Redirect exact from="/" to="/home" />
+              </IonRouterOutlet>
+            </ItemProvider>
+          </CategoryProvider>
+        </IonSplitPane>
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton routerLink="/new">
+            <IonIcon icon={add} />
+          </IonFabButton>
+        </IonFab>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 export default App;
