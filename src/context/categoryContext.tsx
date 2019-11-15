@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import {firebase} from "../firebase";
 
@@ -14,16 +14,27 @@ const CategoryContext = React.createContext({} as catContextProps);
 const CategoryProvider = (props: any) => {
   const [categoriesList, setCategoriesList] = useState(testList);
 
-  const firebaseCall = firebase
-    .firestore()
-    .collection("categories")
-    .get()
-    .then((categorySnapshot) => {
-      console.log(categorySnapshot);
-      categorySnapshot.forEach((category) => {
-        console.log(category.data());
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collectionGroup("categories")
+      .where("userId", "==", 0)
+      .get()
+      .then((snapshot) => {
+        console.log(snapshot);
+        const catListToSend: any[] = [];
+
+        snapshot.forEach((doc) => {
+          console.log(doc.data());
+          catListToSend.push(doc.data());
+        });
+        setCategoriesList(catListToSend);
+      })
+      .catch((error) => {
+        console.error(error);
+        setCategoriesList(testList);
       });
-    });
+  }, []);
 
   return (
     <CategoryContext.Provider value={{categoriesList, setCategoriesList}}>

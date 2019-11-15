@@ -42,13 +42,6 @@ export const itemList = [
     quantity: "2lbs",
     isChecked: false,
   },
-  {
-    id: 2,
-    catId: 1,
-    name: "Peanut Butter",
-    quantity: "69lbs",
-    isChecked: false,
-  },
 ];
 
 export const userList = [
