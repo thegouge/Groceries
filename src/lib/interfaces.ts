@@ -2,8 +2,7 @@ export interface User {
   accessId: string;
   admin: boolean;
   name: string;
-  categories: CategoryClass[];
-  items: Item[];
+  userId: number;
 }
 
 export interface CategoryClass {

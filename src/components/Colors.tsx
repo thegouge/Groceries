@@ -1,32 +1,22 @@
-import React, {Dispatch, SetStateAction} from "react";
-import {
-  IonTitle,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonHeader,
-  IonCard,
-  IonLabel,
-  IonItem,
-  IonInput,
-} from "@ionic/react";
+import React from "react";
+import {IonGrid, IonRow, IonCol, IonHeader, IonInput} from "@ionic/react";
 
 import {colorList} from "../lib/defaultData";
 
 interface Props {
   catColor: string;
-  setCatColor: Dispatch<SetStateAction<string>>;
+  setCatColor: (newColor: string) => void;
 }
 
 const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
   const setSelectedColor = (color: string) => {
-    console.log(color);
     setCatColor(color);
   };
 
-  const mapThroughColors = (colorArray: string[]) => {
-    return colorArray.map((color: string) => (
+  const mapThroughColors = (colorArray: string[], row: number) => {
+    return colorArray.map((color: string, index) => (
       <IonCol
+        key={row + "-" + index}
         style={{cursor: "pointer", backgroundColor: color}}
         onClick={() => setSelectedColor(color)}>
         &nbsp;
@@ -34,8 +24,8 @@ const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
     ));
   };
 
-  const colorGrid = colorList.map((array) => (
-    <IonRow>{mapThroughColors(array)}</IonRow>
+  const colorGrid = colorList.map((array, index) => (
+    <IonRow key={index}>{mapThroughColors(array, index)}</IonRow>
   ));
 
   return (

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useContext} from "react";
 import {
   IonCard,
   IonCardHeader,
@@ -29,8 +29,8 @@ const Category: React.FC<Props> = ({
   removing,
   isCatReorder,
 }) => {
-  const {itemsList} = useContext(ItemContext);
-  const catItems = itemsList
+  const {itemList} = useContext(ItemContext);
+  const catItems = itemList
     .filter((item) => item.catId === category.id)
     .map((item: Item, index: number) => (
       <IonItem

@@ -22,47 +22,81 @@ import {
 import React, {useState, useContext} from "react";
 
 import Colors from "../components/Colors";
-import {CategoryContext} from "../context";
+import {CategoryContext, ItemContext} from "../context";
+import {CategoryClass} from "../lib/interfaces";
+import {withRouter, RouteComponentProps} from "react-router-dom";
 
-const NewItem: React.FC = (props) => {
-  const {categoriesList} = useContext(CategoryContext);
+const NewItem: React.FC<RouteComponentProps> = (props) => {
+  // Context
+  const {categoriesList, addCategory} = useContext(CategoryContext);
+  const {addItem} = useContext(ItemContext);
+
+  // state
   const [addType, setAddType] = useState("grocery");
-  const [input, setInput] = useState({});
-  const [newCat, setNewCat] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [category, setCategory] = useState(0);
   const [catColor, setCatColor] = useState("#FFFFFF");
+  const [showModal, setShowModal] = useState(false);
 
-  const updateAddType = (e: any) => {
-    setAddType(e.detail.value);
+  const resetState = () => {
+    setAddType("grocery");
+    setName("");
+    setQuantity("");
+    setCategory(0);
+    setCatColor("#FFFFFF");
   };
 
   const addInput = () => {
-    console.log("form submit!");
+    console.log(`new ${addType}!`);
+    switch (addType) {
+      case "category":
+        addCategory({
+          name: name,
+          color: catColor,
+        } as CategoryClass);
+        break;
+
+      case "grocery":
+        addItem({
+          name: name,
+          quantity: quantity,
+          category: category,
+        });
+
+        break;
+
+      default:
+        break;
+    }
+
+    resetState();
+    props.history.push("/home");
   };
 
   let newForm;
 
   switch (addType) {
     case "grocery":
-      const updateCategorySelection = (e: any) => {
-        setNewCat(e.detail.value);
-      };
-
       newForm = (
         <form>
           <IonItem>
             <IonLabel position="floating">Grocery Name</IonLabel>
-            <IonInput></IonInput>
+            <IonInput
+              value={name}
+              onIonChange={(e: any) => setName(e.detail.value)}></IonInput>
           </IonItem>
           <IonItem>
             <IonLabel position="floating">Quantity</IonLabel>
-            <IonInput></IonInput>
+            <IonInput
+              value={quantity}
+              onIonChange={(e: any) => setQuantity(e.detail.value)}></IonInput>
           </IonItem>
           <IonItem>
             <IonLabel position="floating">Category</IonLabel>
             <IonSelect
               interface="popover"
-              onIonChange={updateCategorySelection}>
+              onIonChange={(e: any) => setCategory(parseInt(e.detail.value))}>
               {categoriesList.map((category) => (
                 <IonSelectOption key={category.name} value={category.id}>
                   {category.name}
@@ -87,7 +121,9 @@ const NewItem: React.FC = (props) => {
         <form>
           <IonItem>
             <IonLabel position="floating">Category Name</IonLabel>
-            <IonInput></IonInput>
+            <IonInput
+              value={name}
+              onIonChange={(e: any) => setName(e.detail.value)}></IonInput>
           </IonItem>
 
           <IonItem>
@@ -126,7 +162,7 @@ const NewItem: React.FC = (props) => {
           </IonButtons>
           <IonTitle>Create a New...</IonTitle>
         </IonToolbar>
-        <IonSegment onIonChange={updateAddType}>
+        <IonSegment onIonChange={(e: any) => setAddType(e.detail.value)}>
           <IonSegmentButton value="grocery" checked={addType === "grocery"}>
             <IonLabel>Grocery</IonLabel>
           </IonSegmentButton>
@@ -151,4 +187,4 @@ const NewItem: React.FC = (props) => {
     </IonPage>
   );
 };
-export default NewItem;
+export default withRouter(NewItem);

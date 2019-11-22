@@ -27,7 +27,7 @@ export const testList = [
   },
 ];
 
-export const itemList = [
+export const defaultItemList = [
   {
     id: 0,
     catId: 0,
@@ -49,7 +49,6 @@ export const userList = [
     accessId: "a1exP@ssWord",
     admin: true,
     name: "Alex",
-    categories: testList,
-    items: itemList,
+    userId: 0,
   },
 ];

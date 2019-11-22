@@ -15,32 +15,28 @@ import {ItemReorderEventDetail} from "@ionic/core";
 import {RouteComponentProps} from "react-router";
 
 /* Data Init */
-import {CategoryClass, Item} from "../lib/interfaces";
+import {CategoryClass} from "../lib/interfaces";
 import {CategoryContext, ItemContext} from "../context";
 
 /* Components */
 import Category from "../components/category";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
-  const {categoriesList, setCategoriesList} = useContext(CategoryContext);
-  const {itemsList, setItemsList} = useContext(ItemContext);
+  const {categoriesList} = useContext(CategoryContext);
+  const {itemList, resetItemList} = useContext(ItemContext);
   const [removing, setRemove] = useState(false);
   const [isCatReorder, setCatReorder] = useState(false);
 
-  const addCat = () => {};
-
-  const addItem = () => {};
-
   const checkItem = (itemId: number): void => {
-    const index = itemsList.findIndex((item) => item.id === itemId);
-    itemsList[index].isChecked = !itemsList[index].isChecked;
+    const index = itemList.findIndex((item) => item.id === itemId);
+    itemList[index].isChecked = !itemList[index].isChecked;
   };
 
   const removeChecked = () => {
     setRemove(true);
     setTimeout(() => {
-      const reducedItemsList = itemsList.filter((item) => !item.isChecked);
-      setItemsList(reducedItemsList);
+      const reducedItemList = itemList.filter((item) => !item.isChecked);
+      resetItemList(reducedItemList);
       setRemove(false);
     }, 400);
   };

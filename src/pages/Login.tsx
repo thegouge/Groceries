@@ -1,7 +1,8 @@
 import React from "react";
+import {IonPage} from "@ionic/react";
 
 const Login = () => {
-  return <div>login works!</div>;
+  return <IonPage></IonPage>;
 };
 
 export default Login;

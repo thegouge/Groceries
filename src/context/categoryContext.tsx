@@ -7,37 +7,46 @@ import {CategoryClass} from "../lib/interfaces";
 
 interface catContextProps {
   categoriesList: CategoryClass[];
-  setCategoriesList: React.Dispatch<React.SetStateAction<CategoryClass[]>>;
+  addCategory: (category: any) => void;
+  resetCategoryList: (newList: CategoryClass[]) => void;
 }
 
 const CategoryContext = React.createContext({} as catContextProps);
 const CategoryProvider = (props: any) => {
   const [categoriesList, setCategoriesList] = useState(testList);
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collectionGroup("categories")
-      .where("userId", "==", 0)
-      .get()
-      .then((snapshot) => {
-        console.log(snapshot);
-        const catListToSend: any[] = [];
+  const addCategory = (categoryToAdd: {name: string; color: string}) => {
+    const category: CategoryClass = {...categoryToAdd, id: 8};
+    setCategoriesList([...categoriesList, category]);
+  };
 
-        snapshot.forEach((doc) => {
-          console.log(doc.data());
-          catListToSend.push(doc.data());
-        });
-        setCategoriesList(catListToSend);
-      })
-      .catch((error) => {
-        console.error(error);
-        setCategoriesList(testList);
-      });
-  }, []);
+  const resetCategoryList = (newList: CategoryClass[]) => {
+    setCategoriesList(newList);
+  };
+
+  // useEffect(() => {
+  //     firebase
+  //       .firestore()
+  //       .collectionGroup("categories")
+  //       .where("userId", "==", 0)
+  //       .get()
+  //       .then((snapshot) => {
+  //         const catListToSend: any[] = [];
+
+  //         snapshot.forEach((doc) => {
+  //           catListToSend.push(doc.data());
+  //         });
+
+  //         setCategoriesList(catListToSend);
+  //       }).catch( (error) => {
+  //     console.error(error);
+  //     setCategoriesList(testList);
+  //   });
+  // }, []);
 
   return (
-    <CategoryContext.Provider value={{categoriesList, setCategoriesList}}>
+    <CategoryContext.Provider
+      value={{categoriesList, addCategory, resetCategoryList}}>
       {props.children}
     </CategoryContext.Provider>
   );
