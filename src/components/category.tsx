@@ -51,13 +51,15 @@ const Category: React.FC<Props> = ({
 
   const categoryCard = (
     <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>
-          {isCatReorder && <IonIcon icon={reorder} />}
-          {category.name}
-        </IonCardTitle>
-      </IonCardHeader>
-      <IonList>{catItems}</IonList>
+      <div style={{backgroundColor: category.color}}>
+        <IonCardHeader>
+          <IonCardTitle>
+            {isCatReorder && <IonIcon icon={reorder} />}
+            {category.name}
+          </IonCardTitle>
+        </IonCardHeader>
+        <IonList>{catItems}</IonList>
+      </div>
     </IonCard>
   );
 

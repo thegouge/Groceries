@@ -39,26 +39,27 @@ const ItemProvider = (props: any) => {
     setItemsList(newList);
   };
 
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collectionGroup("items")
-  //     .where("userId", "==", 0)
-  //     .get()
-  //     .then((snapshot) => {
-  //       const defaultItemListToPush: any[] = [];
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc("Am6rTGvRXoLscCOIAVLe")
+      .collection("items")
+      .get()
+      .then((snapshot) => {
+        const itemListToPush: any[] = [];
 
-  //       snapshot.forEach((doc) => {
-  //         defaultItemListToPush.push(doc.data());
-  //       });
+        snapshot.forEach((doc) => {
+          itemListToPush.push(doc.data());
+        });
 
-  //       setItemsList(defaultItemListToPush);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       setItemsList(defaultItemList);
-  //     });
-  // }, []);
+        setItemsList(itemListToPush);
+      })
+      .catch((error) => {
+        console.error(error);
+        setItemsList(defaultItemList);
+      });
+  }, []);
 
   return (
     <ItemContext.Provider value={{itemList, addItem, resetItemList}}>

@@ -24,25 +24,27 @@ const CategoryProvider = (props: any) => {
     setCategoriesList(newList);
   };
 
-  // useEffect(() => {
-  //     firebase
-  //       .firestore()
-  //       .collectionGroup("categories")
-  //       .where("userId", "==", 0)
-  //       .get()
-  //       .then((snapshot) => {
-  //         const catListToSend: any[] = [];
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc("Am6rTGvRXoLscCOIAVLe ")
+      .collection("categories")
+      .get()
+      .then((snapshot) => {
+        const catListToSend: any[] = [];
 
-  //         snapshot.forEach((doc) => {
-  //           catListToSend.push(doc.data());
-  //         });
+        snapshot.forEach((doc) => {
+          catListToSend.push(doc.data());
+        });
 
-  //         setCategoriesList(catListToSend);
-  //       }).catch( (error) => {
-  //     console.error(error);
-  //     setCategoriesList(testList);
-  //   });
-  // }, []);
+        setCategoriesList(catListToSend);
+      })
+      .catch((error) => {
+        console.error(error);
+        setCategoriesList(testList);
+      });
+  }, []);
 
   return (
     <CategoryContext.Provider

@@ -2,7 +2,6 @@ export interface User {
   accessId: string;
   admin: boolean;
   name: string;
-  userId: number;
 }
 
 export interface CategoryClass {

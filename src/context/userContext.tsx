@@ -1,19 +1,18 @@
 import React, {useState} from "react";
 
-import {userList} from "../lib/defaultData";
+import {defaultUser} from "../lib/defaultData";
 import {User} from "../lib/interfaces";
 
 interface userContextProps {
-  usersList: User[];
-  setUsersList: React.Dispatch<React.SetStateAction<User[]>>;
+  currentUser: User;
 }
 
 const UserContext = React.createContext({} as userContextProps);
 const UserProvider = (props: any) => {
-  const [usersList, setUsersList] = useState(userList);
+  const [currentUser, setCurrentUser] = useState(defaultUser);
 
   return (
-    <UserContext.Provider value={{usersList, setUsersList}}>
+    <UserContext.Provider value={{currentUser}}>
       {props.children}
     </UserContext.Provider>
   );

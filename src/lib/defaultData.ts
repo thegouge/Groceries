@@ -44,11 +44,8 @@ export const defaultItemList = [
   },
 ];
 
-export const userList = [
-  {
-    accessId: "a1exP@ssWord",
-    admin: true,
-    name: "Alex",
-    userId: 0,
-  },
-];
+export const defaultUser = {
+  accessId: "a1exP@ssWord",
+  admin: true,
+  name: "Alex",
+};
