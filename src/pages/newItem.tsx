@@ -83,13 +83,11 @@ const NewItem: React.FC<RouteComponentProps> = (props) => {
           <IonItem>
             <IonLabel position="floating">Grocery Name</IonLabel>
             <IonInput
-              value={name}
               onIonChange={(e: any) => setName(e.detail.value)}></IonInput>
           </IonItem>
           <IonItem>
             <IonLabel position="floating">Quantity</IonLabel>
             <IonInput
-              value={quantity}
               onIonChange={(e: any) => setQuantity(e.detail.value)}></IonInput>
           </IonItem>
           <IonItem>
@@ -122,7 +120,6 @@ const NewItem: React.FC<RouteComponentProps> = (props) => {
           <IonItem>
             <IonLabel position="floating">Category Name</IonLabel>
             <IonInput
-              value={name}
               onIonChange={(e: any) => setName(e.detail.value)}></IonInput>
           </IonItem>
 

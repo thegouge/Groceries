@@ -22,21 +22,19 @@ import {CategoryContext, ItemContext} from "../context";
 import Category from "../components/category";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
+  // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {itemList, resetItemList} = useContext(ItemContext);
+  const {itemList, deleteCheckedItems} = useContext(ItemContext);
+
+  // State
   const [removing, setRemove] = useState(false);
   const [isCatReorder, setCatReorder] = useState(false);
-
-  const checkItem = (itemId: number): void => {
-    const index = itemList.findIndex((item) => item.id === itemId);
-    itemList[index].isChecked = !itemList[index].isChecked;
-  };
 
   const removeChecked = () => {
     setRemove(true);
     setTimeout(() => {
-      const reducedItemList = itemList.filter((item) => !item.isChecked);
-      resetItemList(reducedItemList);
+      const reducedItemList = itemList.filter((item) => item.isChecked);
+      deleteCheckedItems(reducedItemList);
       setRemove(false);
     }, 400);
   };
@@ -52,7 +50,6 @@ const Home: React.FC<RouteComponentProps> = (props) => {
 
   const categoryList = categoriesList.map((category: CategoryClass) => (
     <Category
-      checkItem={checkItem}
       category={category}
       removing={removing}
       key={`${category.name}-card`}

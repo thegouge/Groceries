@@ -18,18 +18,12 @@ import {ItemContext} from "../context";
 
 interface Props {
   category: CategoryClass;
-  checkItem: Function;
   removing: boolean;
   isCatReorder: boolean;
 }
 
-const Category: React.FC<Props> = ({
-  category,
-  checkItem,
-  removing,
-  isCatReorder,
-}) => {
-  const {itemList} = useContext(ItemContext);
+const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
+  const {itemList, checkItem} = useContext(ItemContext);
   const catItems = itemList
     .filter((item) => item.catId === category.id)
     .map((item: Item, index: number) => (
@@ -38,7 +32,7 @@ const Category: React.FC<Props> = ({
         className={removing && item.isChecked ? "flying" : ""}>
         <IonCheckbox
           slot="start"
-          onClick={() => checkItem(item.id)}
+          onClick={() => checkItem(item.name)}
           checked={item.isChecked}
           disabled={isCatReorder}
         />
