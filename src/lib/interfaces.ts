@@ -18,3 +18,10 @@ export interface Item {
   quantity: string;
   isChecked: boolean;
 }
+
+export interface FireItem {
+  id: number;
+  catId: number;
+  name: string;
+  quantity: string;
+}

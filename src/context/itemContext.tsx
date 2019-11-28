@@ -6,12 +6,12 @@ import firebase from "firebase";
 
 interface itemContextProps {
   itemList: Item[];
-  checkItem: (itemName: string) => void;
   addItem: (newItem: {
     name: string;
     quantity: string;
     category: number;
   }) => void;
+  checkItem: (itemName: string) => void;
   deleteCheckedItems: (checkedList: Item[]) => void;
 }
 
@@ -24,15 +24,9 @@ const ItemProvider = (props: any) => {
     .collection("users")
     .doc("Am6rTGvRXoLscCOIAVLe");
 
+  // ToDo: get this off the database, keep 'isChecked' local
   const checkItem = (itemName: string) => {
-    const localItem = itemList.find((item) => itemName === item.name);
-    console.log(localItem);
-    if (localItem) {
-      userRef
-        .collection("items")
-        .doc(itemName)
-        .update({isChecked: !localItem.isChecked});
-    }
+    const itemToCheck = itemList.findIndex((item) => itemName === item.name);
   };
 
   const addItem = (newItem: {
@@ -48,6 +42,7 @@ const ItemProvider = (props: any) => {
       catId: newItem.category,
     };
 
+    setItemsList([...itemList, item]);
     userRef
       .collection("items")
       .doc(item.name)
@@ -66,6 +61,7 @@ const ItemProvider = (props: any) => {
   };
 
   useEffect(() => {
+    console.log("reading Items!");
     userRef
       .collection("items")
       .get()
@@ -73,7 +69,7 @@ const ItemProvider = (props: any) => {
         const itemListToPush: any[] = [];
 
         snapshot.forEach((doc) => {
-          itemListToPush.push(doc.data());
+          itemListToPush.push({...doc.data(), isChecked: false});
         });
 
         setItemsList(itemListToPush);
@@ -82,7 +78,7 @@ const ItemProvider = (props: any) => {
         console.error(error);
         setItemsList(defaultItemList);
       });
-  }, [itemList]);
+  }, []);
 
   return (
     <ItemContext.Provider

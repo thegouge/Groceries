@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 
 import {firebase} from "../firebase";
 
-import {testList} from "../lib/defaultData";
+import {useCategories} from "../hooks";
 import {CategoryClass} from "../lib/interfaces";
 
 interface catContextProps {
@@ -13,7 +13,7 @@ interface catContextProps {
 
 const CategoryContext = React.createContext({} as catContextProps);
 const CategoryProvider = (props: any) => {
-  const [categoriesList, setCategoriesList] = useState(testList);
+  const {categoriesList, setCategoriesList} = useCategories();
 
   const userRef = firebase
     .firestore()
@@ -22,6 +22,7 @@ const CategoryProvider = (props: any) => {
 
   const addCategory = (categoryToAdd: {name: string; color: string}) => {
     const category: CategoryClass = {...categoryToAdd, id: 8};
+    setCategoriesList([...categoriesList, category]);
     userRef
       .collection("categories")
       .doc(category.name)
@@ -32,25 +33,6 @@ const CategoryProvider = (props: any) => {
     setCategoriesList(newList);
     userRef.collection("categories");
   };
-
-  useEffect(() => {
-    userRef
-      .collection("categories")
-      .get()
-      .then((snapshot) => {
-        const catListToSend: any[] = [];
-
-        snapshot.forEach((doc) => {
-          catListToSend.push(doc.data());
-        });
-
-        setCategoriesList(catListToSend);
-      })
-      .catch((error) => {
-        console.error(error);
-        setCategoriesList(testList);
-      });
-  }, [categoriesList]);
 
   return (
     <CategoryContext.Provider

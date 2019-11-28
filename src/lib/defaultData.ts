@@ -14,7 +14,7 @@ export const colorList = [
   ["#606060", "#808080", "#A0A0A0", "#C0C0C0", "#E0E0E0", "#FFFFFF"],
 ];
 
-export const testList = [
+export const defaultCategoriesList = [
   {
     id: 0,
     name: "Starting Category",
