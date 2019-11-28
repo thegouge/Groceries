@@ -10,9 +10,14 @@ import {
   IonReorderGroup,
   IonMenuButton,
   IonButtons,
+  IonCard,
+  IonIcon,
+  IonLabel,
+  IonItem,
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
 import {RouteComponentProps} from "react-router";
+import {add} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
@@ -72,6 +77,12 @@ const Home: React.FC<RouteComponentProps> = (props) => {
       <IonContent>
         <IonReorderGroup onIonItemReorder={doReorder}>
           {categoryList}
+          <IonCard routerLink={"/new/category/0"}>
+            <IonItem>
+              <IonIcon slot="start" icon={add} />
+              <IonLabel>add new Category</IonLabel>
+            </IonItem>
+          </IonCard>
         </IonReorderGroup>
       </IonContent>
     </IonPage>

@@ -58,7 +58,7 @@ const App: React.FC = (props) => {
               <Menu />
               <IonRouterOutlet id="main">
                 <Route exact path="/home" component={Home} />
-                <Route exact path="/new" component={NewItem} />
+                <Route exact path="/new/:type/:initial" component={NewItem} />
                 <Route exact path="/category/:id" component={CategoryPage} />
                 <Route exact path="/settings" component={Settings} />
                 <Route exact path="/login" component={Login} />
@@ -67,11 +67,6 @@ const App: React.FC = (props) => {
             </ItemProvider>
           </CategoryProvider>
         </IonSplitPane>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/new">
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
       </IonReactRouter>
     </IonApp>
   );

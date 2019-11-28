@@ -26,21 +26,29 @@ import {CategoryContext, ItemContext} from "../context";
 import {CategoryClass} from "../lib/interfaces";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 
-const NewItem: React.FC<RouteComponentProps> = (props) => {
+interface QueryProps {
+  type: string;
+  initial: string;
+}
+
+const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
+  match,
+  history,
+}) => {
   // Context
   const {categoriesList, addCategory} = useContext(CategoryContext);
   const {addItem} = useContext(ItemContext);
 
   // state
-  const [addType, setAddType] = useState("grocery");
+  const [addType, setAddType] = useState(match.params.type);
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState(parseInt(match.params.initial));
   const [catColor, setCatColor] = useState("#FFFFFF");
   const [showModal, setShowModal] = useState(false);
 
   const resetState = () => {
-    setAddType("grocery");
+    setAddType(match.params.type);
     setName("");
     setQuantity("");
     setCategory(0);
@@ -71,7 +79,7 @@ const NewItem: React.FC<RouteComponentProps> = (props) => {
     }
 
     resetState();
-    props.history.push("/home");
+    history.push("/home");
   };
 
   let newForm;
@@ -94,6 +102,7 @@ const NewItem: React.FC<RouteComponentProps> = (props) => {
             <IonLabel position="floating">Category</IonLabel>
             <IonSelect
               interface="popover"
+              value={category}
               onIonChange={(e: any) => setCategory(parseInt(e.detail.value))}>
               {categoriesList.map((category) => (
                 <IonSelectOption key={category.name} value={category.id}>

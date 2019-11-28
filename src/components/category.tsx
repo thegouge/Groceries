@@ -13,7 +13,7 @@ import {
 } from "@ionic/react";
 
 import {CategoryClass, Item} from "../lib/interfaces";
-import {reorder} from "ionicons/icons";
+import {reorder, add} from "ionicons/icons";
 import {ItemContext} from "../context";
 
 interface Props {
@@ -45,14 +45,27 @@ const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
 
   const categoryCard = (
     <IonCard>
-      <div style={{backgroundColor: category.color}}>
-        <IonCardHeader>
-          <IonCardTitle>
-            {isCatReorder && <IonIcon icon={reorder} />}
-            {category.name}
-          </IonCardTitle>
-        </IonCardHeader>
-        <IonList>{catItems}</IonList>
+      <div
+        style={{
+          backgroundColor: category.color,
+        }}>
+        <div style={{borderBottom: "1px solid grey"}}>
+          <IonCardHeader>
+            <IonCardTitle>
+              {isCatReorder && <IonIcon icon={reorder} />}
+              {category.name}
+            </IonCardTitle>
+          </IonCardHeader>
+        </div>
+        <IonList>
+          {catItems}
+          <IonItem
+            key={`new-${category.name}-item`}
+            routerLink={`/new/grocery/${category.id}`}>
+            <IonIcon slot="start" icon={add} />
+            <IonLabel>add new Item</IonLabel>
+          </IonItem>
+        </IonList>
       </div>
     </IonCard>
   );

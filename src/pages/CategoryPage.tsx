@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {withRouter, RouteComponentProps} from "react-router-dom";
+import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
 import {
   IonPage,
   IonContent,
@@ -22,7 +22,7 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   );
 
   if (!selectedCategory) {
-    return <div>How the hell are you even here?</div>;
+    return <Redirect to="/home"></Redirect>;
   }
 
   return (
