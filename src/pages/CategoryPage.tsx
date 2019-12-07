@@ -7,9 +7,12 @@ import {
   IonToolbar,
   IonMenuButton,
   IonTitle,
+  IonCard,
+  IonItem,
 } from "@ionic/react";
 
-import {CategoryContext} from "../context";
+import {CategoryContext, ItemContext} from "../context";
+import {ErrorPage} from "./ErrorPage";
 
 interface queryProps {
   id: string;
@@ -17,9 +20,19 @@ interface queryProps {
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   const {categoriesList} = useContext(CategoryContext);
+  const {itemsList} = useContext(ItemContext);
+
   const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
+
+  if (!selectedCategory) {
+    return <ErrorPage errType="no selected cat" />;
+  } else {
+    const catItemList = itemsList
+      .filter((item) => selectedCategory.id === item.catId)
+      .map((item) => <IonItem></IonItem>);
+  }
 
   if (!selectedCategory) {
     return <Redirect to="/home"></Redirect>;
@@ -33,7 +46,9 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
           <IonTitle slot="start">{selectedCategory.name}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>Hello from {selectedCategory.name}</IonContent>
+      <IonContent>
+        <IonCard></IonCard>
+      </IonContent>
     </IonPage>
   );
 };

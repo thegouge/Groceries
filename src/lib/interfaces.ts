@@ -11,7 +11,7 @@ export interface CategoryClass {
   // icon: any;
 }
 
-export interface Item {
+export interface ItemClass {
   id: number;
   catId: number;
   name: string;

@@ -24,7 +24,7 @@ import {CategoryClass} from "../lib/interfaces";
 import {CategoryContext, ItemContext} from "../context";
 
 /* Components */
-import Category from "../components/category";
+import Category from "../components/Category";
 
 const Home: React.FC<RouteComponentProps> = (props) => {
   // Context

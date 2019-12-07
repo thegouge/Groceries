@@ -12,9 +12,10 @@ import {
   IonIcon,
 } from "@ionic/react";
 
-import {CategoryClass, Item} from "../lib/interfaces";
+import {CategoryClass, ItemClass} from "../lib/interfaces";
 import {reorder, add} from "ionicons/icons";
 import {ItemContext} from "../context";
+import {Item} from "./Item";
 
 interface Props {
   category: CategoryClass;
@@ -26,22 +27,7 @@ const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
   const {itemsList, checkItem} = useContext(ItemContext);
   const catItems = itemsList
     .filter((item) => item.catId === category.id)
-    .map((item: Item, index: number) => (
-      <IonItem
-        key={`${category.name}:${item.name}`}
-        className={removing && item.isChecked ? "flying" : ""}>
-        <IonCheckbox
-          slot="start"
-          onClick={() => checkItem(item.name)}
-          checked={item.isChecked}
-          disabled={isCatReorder}
-        />
-        <IonLabel className={item.isChecked ? "checked" : ""}>
-          <h2>{item.name}</h2>
-          <IonNote>{item.quantity}</IonNote>
-        </IonLabel>
-      </IonItem>
-    ));
+    .map((item: ItemClass) => <Item item={item} removing={removing} />);
 
   const categoryCard = (
     <IonCard>
