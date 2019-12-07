@@ -31,8 +31,9 @@ export const defaultItemList = [
   {
     id: 0,
     catId: 0,
-    name: "press the '+' button to add a new item/category",
-    quantity: "click on items to 'check' them",
+    name: "click on items to 'check' them",
+    quantity:
+      "You can remove all checked items using the button in the top left",
     isChecked: false,
   },
   {

@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 
-import {defaultItemList} from "../lib/defaultData";
 import {Item} from "../lib/interfaces";
 import firebase from "firebase";
+import {useItems} from "../hooks/useItems";
 
 interface itemContextProps {
-  itemList: Item[];
+  itemsList: Item[];
   addItem: (newItem: {
     name: string;
     quantity: string;
@@ -17,7 +17,7 @@ interface itemContextProps {
 
 const ItemContext = React.createContext({} as itemContextProps);
 const ItemProvider = (props: any) => {
-  const [itemList, setItemsList] = useState(defaultItemList);
+  const {itemsList, setItemsList} = useItems();
 
   const userRef = firebase
     .firestore()
@@ -26,7 +26,7 @@ const ItemProvider = (props: any) => {
 
   // ToDo: get this off the database, keep 'isChecked' local
   const checkItem = (itemName: string) => {
-    const itemToCheck = itemList.findIndex((item) => itemName === item.name);
+    const itemToCheck = itemsList.findIndex((item) => itemName === item.name);
   };
 
   const addItem = (newItem: {
@@ -42,47 +42,25 @@ const ItemProvider = (props: any) => {
       catId: newItem.category,
     };
 
-    setItemsList([...itemList, item]);
-    userRef
-      .collection("items")
-      .doc(item.name)
-      .set(item);
+    setItemsList([...itemsList, item]);
+    // userRef
+    //   .collection("items")
+    //   .doc(item.name)
+    //   .set(item);
   };
 
   const deleteCheckedItems = (checkedList: Item[]) => {
-    const batch = firebase.firestore().batch();
-    const fireList = userRef.collection("items");
-
-    checkedList.forEach((item) => {
-      batch.delete(fireList.doc(item.name));
-    });
-
-    batch.commit();
+    // const batch = firebase.firestore().batch();
+    // const fireList = userRef.collection("items");
+    // checkedList.forEach((item) => {
+    //   batch.delete(fireList.doc(item.name));
+    // });
+    // batch.commit();
   };
-
-  useEffect(() => {
-    console.log("reading Items!");
-    userRef
-      .collection("items")
-      .get()
-      .then((snapshot) => {
-        const itemListToPush: any[] = [];
-
-        snapshot.forEach((doc) => {
-          itemListToPush.push({...doc.data(), isChecked: false});
-        });
-
-        setItemsList(itemListToPush);
-      })
-      .catch((error) => {
-        console.error(error);
-        setItemsList(defaultItemList);
-      });
-  }, []);
 
   return (
     <ItemContext.Provider
-      value={{itemList, checkItem, addItem, deleteCheckedItems}}>
+      value={{itemsList, checkItem, addItem, deleteCheckedItems}}>
       {props.children}
     </ItemContext.Provider>
   );

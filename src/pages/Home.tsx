@@ -29,7 +29,7 @@ import Category from "../components/category";
 const Home: React.FC<RouteComponentProps> = (props) => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {itemList, deleteCheckedItems} = useContext(ItemContext);
+  const {itemsList, deleteCheckedItems} = useContext(ItemContext);
 
   // State
   const [removing, setRemove] = useState(false);
@@ -38,7 +38,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   const removeChecked = () => {
     setRemove(true);
     setTimeout(() => {
-      const reducedItemList = itemList.filter((item) => item.isChecked);
+      const reducedItemList = itemsList.filter((item) => item.isChecked);
       deleteCheckedItems(reducedItemList);
       setRemove(false);
     }, 400);

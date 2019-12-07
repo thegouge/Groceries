@@ -8,7 +8,6 @@ import {CategoryClass} from "../lib/interfaces";
 interface catContextProps {
   categoriesList: CategoryClass[];
   addCategory: (category: any) => void;
-  resetCategoryList: (newList: CategoryClass[]) => void;
 }
 
 const CategoryContext = React.createContext({} as catContextProps);
@@ -21,22 +20,18 @@ const CategoryProvider = (props: any) => {
     .doc("Am6rTGvRXoLscCOIAVLe");
 
   const addCategory = (categoryToAdd: {name: string; color: string}) => {
-    const category: CategoryClass = {...categoryToAdd, id: 8};
-    setCategoriesList([...categoriesList, category]);
-    userRef
-      .collection("categories")
-      .doc(category.name)
-      .set(category);
-  };
+    const nextId = categoriesList.length;
+    const category: CategoryClass = {...categoryToAdd, id: nextId};
 
-  const resetCategoryList = (newList: CategoryClass[]) => {
-    setCategoriesList(newList);
-    userRef.collection("categories");
+    setCategoriesList([...categoriesList, category]);
+    // userRef
+    //   .collection("categories")
+    //   .doc(category.name)
+    //   .set(category);
   };
 
   return (
-    <CategoryContext.Provider
-      value={{categoriesList, addCategory, resetCategoryList}}>
+    <CategoryContext.Provider value={{categoriesList, addCategory}}>
       {props.children}
     </CategoryContext.Provider>
   );

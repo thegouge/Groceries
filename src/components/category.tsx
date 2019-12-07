@@ -23,8 +23,8 @@ interface Props {
 }
 
 const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
-  const {itemList, checkItem} = useContext(ItemContext);
-  const catItems = itemList
+  const {itemsList, checkItem} = useContext(ItemContext);
+  const catItems = itemsList
     .filter((item) => item.catId === category.id)
     .map((item: Item, index: number) => (
       <IonItem
