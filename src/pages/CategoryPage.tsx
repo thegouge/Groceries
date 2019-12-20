@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
 import {
   IonPage,
@@ -8,11 +8,13 @@ import {
   IonMenuButton,
   IonTitle,
   IonCard,
-  IonItem,
+  IonButtons,
+  IonButton,
 } from "@ionic/react";
 
 import {CategoryContext, ItemContext} from "../context";
 import {ErrorPage} from "./ErrorPage";
+import {Item} from "../components/Item";
 
 interface queryProps {
   id: string;
@@ -20,23 +22,25 @@ interface queryProps {
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   const {categoriesList} = useContext(CategoryContext);
-  const {itemsList} = useContext(ItemContext);
+  const {itemsList, deleteCheckedItems} = useContext(ItemContext);
 
   const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
 
-  if (!selectedCategory) {
+  const [catItemList, setCatItemList] = useState(
+    selectedCategory
+      ? itemsList.filter((item) => selectedCategory.id === item.catId)
+      : undefined
+  );
+
+  if (!selectedCategory || !catItemList) {
     return <ErrorPage errType="no selected cat" />;
-  } else {
-    const catItemList = itemsList
-      .filter((item) => selectedCategory.id === item.catId)
-      .map((item) => <IonItem></IonItem>);
   }
 
-  if (!selectedCategory) {
-    return <Redirect to="/home"></Redirect>;
-  }
+  const removeChecked = () => {
+    deleteCheckedItems();
+  };
 
   return (
     <IonPage>
@@ -44,10 +48,17 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
         <IonToolbar>
           <IonMenuButton slot="start" />
           <IonTitle slot="start">{selectedCategory.name}</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={removeChecked}>Remove Checked</IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonCard></IonCard>
+        <IonCard>
+          {catItemList.map((item) => (
+            <Item item={item} />
+          ))}
+        </IonCard>
       </IonContent>
     </IonPage>
   );

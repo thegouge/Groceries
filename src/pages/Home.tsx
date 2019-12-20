@@ -38,8 +38,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   const removeChecked = () => {
     setRemove(true);
     setTimeout(() => {
-      const reducedItemList = itemsList.filter((item) => item.isChecked);
-      deleteCheckedItems(reducedItemList);
+      deleteCheckedItems();
       setRemove(false);
     }, 400);
   };

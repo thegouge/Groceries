@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import firebase from "firebase";
-import {Item} from "../lib/interfaces";
+import {ItemClass} from "../lib/interfaces";
 import {defaultItemList} from "../lib/defaultData";
 
 export const useItems = () => {

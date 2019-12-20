@@ -24,10 +24,12 @@ interface Props {
 }
 
 const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
-  const {itemsList, checkItem} = useContext(ItemContext);
+  const {itemsList} = useContext(ItemContext);
   const catItems = itemsList
     .filter((item) => item.catId === category.id)
-    .map((item: ItemClass) => <Item item={item} removing={removing} />);
+    .map((item: ItemClass) => (
+      <Item item={item} removing={removing} isCatReorder={isCatReorder} />
+    ));
 
   const categoryCard = (
     <IonCard>

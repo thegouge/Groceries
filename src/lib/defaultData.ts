@@ -33,7 +33,7 @@ export const defaultItemList = [
     catId: 0,
     name: "click on items to 'check' them",
     quantity:
-      "You can remove all checked items using the button in the top left",
+      "You can remove all checked items using the button in the top right",
     isChecked: false,
   },
   {

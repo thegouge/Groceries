@@ -42,7 +42,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
   // state
   const [addType, setAddType] = useState(match.params.type);
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState("0");
   const [category, setCategory] = useState(parseInt(match.params.initial));
   const [catColor, setCatColor] = useState("#FFFFFF");
   const [showModal, setShowModal] = useState(false);
@@ -50,7 +50,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
   const resetState = () => {
     setAddType(match.params.type);
     setName("");
-    setQuantity("");
+    setQuantity("0");
     setCategory(0);
     setCatColor("#FFFFFF");
   };
