@@ -5,9 +5,7 @@ import {
   IonCardTitle,
   IonList,
   IonItem,
-  IonCheckbox,
   IonLabel,
-  IonNote,
   IonReorder,
   IonIcon,
 } from "@ionic/react";
@@ -28,7 +26,12 @@ const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
   const catItems = itemsList
     .filter((item) => item.catId === category.id)
     .map((item: ItemClass) => (
-      <Item item={item} removing={removing} isCatReorder={isCatReorder} />
+      <Item
+        key={item.name}
+        item={item}
+        removing={removing}
+        isCatReorder={isCatReorder}
+      />
     ));
 
   const categoryCard = (
