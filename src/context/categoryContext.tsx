@@ -15,30 +15,37 @@ interface catContextProps {
 
 const CategoryContext = React.createContext({} as catContextProps);
 const CategoryProvider = (props: any) => {
-  const [categoriesList, setCategoriesList] = useState(defaultCategoriesList);
+  const [categoriesList, setCategoriesList] = useState([] as CategoryClass[]);
 
   const addCategory = (categoryToAdd: {name: string; color: string}) => {
     const nextId = categoriesList.length;
     const category: CategoryClass = {...categoryToAdd, id: nextId};
 
     setCategoriesList([...categoriesList, category]);
+    saveCategories();
   };
 
-  const saveCategories = () => {
-    Storage.set({
+  const saveCategories = async () => {
+    console.log("saving categories...");
+    await Storage.set({
       key: "categories",
       value: JSON.stringify(categoriesList),
     });
   };
 
   const loadCategories = async () => {
-    const data = await Storage.get({key: "categories"});
+    console.log("loading categories...");
+    const data = await Storage.get({key: "categories"}).then();
     if (data.value === null) {
-      return;
+      return defaultCategoriesList;
     } else {
-      setCategoriesList(JSON.parse(data.value));
+      return JSON.parse(data.value);
     }
   };
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   return (
     <CategoryContext.Provider value={{categoriesList, addCategory}}>
