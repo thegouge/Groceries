@@ -35,7 +35,7 @@ const CategoryProvider = (props: any) => {
 
   const loadCategories = async () => {
     console.log("loading categories...");
-    const data = await Storage.get({key: "categories"}).then();
+    const data = await Storage.get({key: "categories"});
     if (data.value === null) {
       return defaultCategoriesList;
     } else {
@@ -44,7 +44,7 @@ const CategoryProvider = (props: any) => {
   };
 
   useEffect(() => {
-    loadCategories();
+    loadCategories().then((data) => setCategoriesList(data));
   }, []);
 
   return (
