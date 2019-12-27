@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from "react";
-
 import {Plugins} from "@capacitor/core";
 
-import {defaultCategoriesList} from "../lib/defaultData";
-
 import {CategoryClass} from "../lib/interfaces";
+import {defaultCategoriesList} from "../lib/defaultData";
 
 const {Storage} = Plugins;
 
@@ -16,14 +14,6 @@ interface catContextProps {
 const CategoryContext = React.createContext({} as catContextProps);
 const CategoryProvider = (props: any) => {
   const [categoriesList, setCategoriesList] = useState([] as CategoryClass[]);
-
-  const addCategory = (categoryToAdd: {name: string; color: string}) => {
-    const nextId = categoriesList.length;
-    const category: CategoryClass = {...categoryToAdd, id: nextId};
-
-    setCategoriesList([...categoriesList, category]);
-    saveCategories();
-  };
 
   const saveCategories = async () => {
     console.log("saving categories...");
@@ -46,6 +36,14 @@ const CategoryProvider = (props: any) => {
   useEffect(() => {
     loadCategories().then((data) => setCategoriesList(data));
   }, []);
+
+  const addCategory = (categoryToAdd: {name: string; color: string}) => {
+    const nextId = categoriesList.length;
+    const category: CategoryClass = {...categoryToAdd, id: nextId};
+
+    setCategoriesList([...categoriesList, category]);
+    saveCategories();
+  };
 
   return (
     <CategoryContext.Provider value={{categoriesList, addCategory}}>

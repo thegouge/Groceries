@@ -4,6 +4,10 @@ import {ItemClass} from "../lib/interfaces";
 import {defaultItemList} from "../lib/defaultData";
 import {GlobalContext} from ".";
 
+import {Plugins} from "@capacitor/core";
+
+const {Storage} = Plugins;
+
 interface itemContextProps {
   itemsList: ItemClass[];
   addItem: (newItem: {
@@ -20,6 +24,22 @@ const ItemProvider = (props: any) => {
   const [itemsList, setItemsList] = useState(defaultItemList);
 
   const {toggleRemoving} = useContext(GlobalContext);
+
+  const saveItems = async () => {
+    console.log("Saving items...");
+    await Storage.set({key: "items", value: JSON.stringify(itemsList)});
+  };
+
+  const loadItems = async () => {
+    console.log("Loading Items...");
+    const data = await Storage.get({key: "items"});
+
+    if (!data.value) {
+      return defaultItemList;
+    } else {
+      return JSON.parse(data.value);
+    }
+  };
 
   const checkItem = (itemName: string) => {
     const indexToCheck = itemsList.findIndex((item) => itemName === item.name);
@@ -48,11 +68,13 @@ const ItemProvider = (props: any) => {
     };
 
     setItemsList([...itemsList, item]);
+    saveItems();
   };
 
   const removeItem = (idToRemove: number) => {
     setItemsList(itemsList.filter((item) => item.id !== idToRemove));
     toggleRemoving();
+    saveItems();
   };
 
   return (
