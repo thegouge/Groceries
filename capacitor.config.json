@@ -1,7 +1,7 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "groceries",
+  "appId": "beef.grocery.com",
+  "appName": "Beefy-Groceries",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "build"
+  "webDir": "www"
 }
