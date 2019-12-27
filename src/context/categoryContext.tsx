@@ -2,7 +2,8 @@ import React, {useState, useEffect} from "react";
 
 import {firebase} from "../firebase";
 
-import {useCategories} from "../hooks";
+import {defaultCategoriesList} from "../lib/defaultData";
+
 import {CategoryClass} from "../lib/interfaces";
 
 interface catContextProps {
@@ -12,7 +13,7 @@ interface catContextProps {
 
 const CategoryContext = React.createContext({} as catContextProps);
 const CategoryProvider = (props: any) => {
-  const {categoriesList, setCategoriesList} = useCategories();
+  const [categoriesList, setCategoriesList] = useState(defaultCategoriesList);
 
   const userRef = firebase
     .firestore()

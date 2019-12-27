@@ -40,6 +40,7 @@ import Menu from "./components/Menu";
 
 /* Context */
 import {CategoryProvider} from "./context";
+import {GlobalProvider} from "./context";
 import {ItemProvider} from "./context";
 
 /* custom Styles */
@@ -53,19 +54,21 @@ const App: React.FC = (props) => {
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
-          <CategoryProvider>
-            <ItemProvider>
-              <Menu />
-              <IonRouterOutlet id="main">
-                <Route exact path="/home" component={Home} />
-                <Route exact path="/new/:type/:initial" component={NewItem} />
-                <Route exact path="/category/:id" component={CategoryPage} />
-                <Route exact path="/settings" component={Settings} />
-                <Route exact path="/login" component={Login} />
-                <Redirect exact from="/" to="/home" />
-              </IonRouterOutlet>
-            </ItemProvider>
-          </CategoryProvider>
+          <GlobalProvider>
+            <CategoryProvider>
+              <ItemProvider>
+                <Menu />
+                <IonRouterOutlet id="main">
+                  <Route exact path="/home" component={Home} />
+                  <Route exact path="/new/:type/:initial" component={NewItem} />
+                  <Route exact path="/category/:id" component={CategoryPage} />
+                  <Route exact path="/settings" component={Settings} />
+                  <Route exact path="/login" component={Login} />
+                  <Redirect exact from="/" to="/home" />
+                </IonRouterOutlet>
+              </ItemProvider>
+            </CategoryProvider>
+          </GlobalProvider>
         </IonSplitPane>
       </IonReactRouter>
     </IonApp>

@@ -21,7 +21,7 @@ import {add} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, ItemContext} from "../context";
+import {CategoryContext, ItemContext, GlobalContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
@@ -29,19 +29,10 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = (props) => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {itemsList, deleteCheckedItems} = useContext(ItemContext);
+  const {toggleRemoving} = useContext(GlobalContext);
 
   // State
-  const [removing, setRemove] = useState(false);
   const [isCatReorder, setCatReorder] = useState(false);
-
-  const removeChecked = () => {
-    setRemove(true);
-    setTimeout(() => {
-      deleteCheckedItems();
-      setRemove(false);
-    }, 400);
-  };
 
   const toggleCatReorder = () => {
     setCatReorder(!isCatReorder);
@@ -55,7 +46,6 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   const categoryList = categoriesList.map((category: CategoryClass) => (
     <Category
       category={category}
-      removing={removing}
       key={`${category.name}-card`}
       isCatReorder={isCatReorder}
     />
@@ -68,7 +58,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
           <IonMenuButton slot="start" />
           <IonTitle slot="start">Learning Ionic</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={removeChecked}>Remove Checked</IonButton>
+            <IonButton onClick={toggleRemoving}>Remove Checked</IonButton>
             <IonButton onClick={toggleCatReorder}>Edit</IonButton>
           </IonButtons>
         </IonToolbar>

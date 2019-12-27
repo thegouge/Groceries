@@ -17,21 +17,16 @@ import {Item} from "./Item";
 
 interface Props {
   category: CategoryClass;
-  removing: boolean;
-  isCatReorder: boolean;
+  isCatReorder?: boolean;
 }
 
-const Category: React.FC<Props> = ({category, removing, isCatReorder}) => {
+const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
   const {itemsList} = useContext(ItemContext);
+
   const catItems = itemsList
     .filter((item) => item.catId === category.id)
     .map((item: ItemClass) => (
-      <Item
-        key={item.name}
-        item={item}
-        removing={removing}
-        isCatReorder={isCatReorder}
-      />
+      <Item key={item.name} item={item} isCatReorder={isCatReorder} />
     ));
 
   const categoryCard = (

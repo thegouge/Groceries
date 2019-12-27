@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useContext} from "react";
 
 import {ItemClass} from "../lib/interfaces";
-import firebase from "firebase";
-import {useItems} from "../hooks/useItems";
 import {defaultItemList} from "../lib/defaultData";
+import {GlobalContext} from ".";
 
 interface itemContextProps {
   itemsList: ItemClass[];
@@ -13,17 +12,14 @@ interface itemContextProps {
     category: number;
   }) => void;
   checkItem: (itemName: string) => void;
-  deleteCheckedItems: () => void;
+  removeItem: (idToRemove: number) => void;
 }
 
 const ItemContext = React.createContext({} as itemContextProps);
 const ItemProvider = (props: any) => {
   const [itemsList, setItemsList] = useState(defaultItemList);
 
-  // const userRef = firebase
-  //   .firestore()
-  //   .collection("users")
-  //   .doc("Am6rTGvRXoLscCOIAVLe");
+  const {toggleRemoving} = useContext(GlobalContext);
 
   const checkItem = (itemName: string) => {
     const indexToCheck = itemsList.findIndex((item) => itemName === item.name);
@@ -52,19 +48,15 @@ const ItemProvider = (props: any) => {
     };
 
     setItemsList([...itemsList, item]);
-    // userRef
-    //   .collection("items")
-    //   .doc(item.name)
-    //   .set(item);
   };
 
-  const deleteCheckedItems = () => {
-    setItemsList(itemsList.filter((item) => !item.isChecked));
+  const removeItem = (idToRemove: number) => {
+    setItemsList(itemsList.filter((item) => item.id !== idToRemove));
+    toggleRemoving();
   };
 
   return (
-    <ItemContext.Provider
-      value={{itemsList, checkItem, addItem, deleteCheckedItems}}>
+    <ItemContext.Provider value={{itemsList, checkItem, addItem, removeItem}}>
       {props.children}
     </ItemContext.Provider>
   );

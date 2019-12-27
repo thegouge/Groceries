@@ -1,5 +1,5 @@
-import React, {useContext, useState} from "react";
-import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
+import React, {useContext} from "react";
+import {withRouter, RouteComponentProps} from "react-router-dom";
 import {
   IonPage,
   IonContent,
@@ -7,14 +7,13 @@ import {
   IonToolbar,
   IonMenuButton,
   IonTitle,
-  IonCard,
   IonButtons,
   IonButton,
 } from "@ionic/react";
 
-import {CategoryContext, ItemContext} from "../context";
+import {CategoryContext, ItemContext, GlobalContext} from "../context";
 import {ErrorPage} from "./ErrorPage";
-import {Item} from "../components/Item";
+import Category from "../components/Category";
 
 interface queryProps {
   id: string;
@@ -22,25 +21,15 @@ interface queryProps {
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   const {categoriesList} = useContext(CategoryContext);
-  const {itemsList, deleteCheckedItems} = useContext(ItemContext);
+  const {toggleRemoving} = useContext(GlobalContext);
 
   const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
 
-  const [catItemList, setCatItemList] = useState(
-    selectedCategory
-      ? itemsList.filter((item) => selectedCategory.id === item.catId)
-      : undefined
-  );
-
-  if (!selectedCategory || !catItemList) {
+  if (!selectedCategory) {
     return <ErrorPage errType="no selected cat" />;
   }
-
-  const removeChecked = () => {
-    deleteCheckedItems();
-  };
 
   return (
     <IonPage>
@@ -49,16 +38,12 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
           <IonMenuButton slot="start" />
           <IonTitle slot="start">{selectedCategory.name}</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={removeChecked}>Remove Checked</IonButton>
+            <IonButton onClick={toggleRemoving}>Remove Checked</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonCard>
-          {catItemList.map((item) => (
-            <Item item={item} />
-          ))}
-        </IonCard>
+        <Category category={selectedCategory} />
       </IonContent>
     </IonPage>
   );
