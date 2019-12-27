@@ -45,7 +45,6 @@ import {ItemProvider} from "./context";
 
 /* custom Styles */
 import "./global.css";
-import {add} from "ionicons/icons";
 
 const App: React.FC = (props) => {
   // const [isLoggedIn, setLoggedIn] = useState(false);
