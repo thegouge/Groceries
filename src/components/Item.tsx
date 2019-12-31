@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
-  const {checkItem, removeItem} = useContext(ItemContext);
+  const {checkItem} = useContext(ItemContext);
   const {removing} = useContext(GlobalContext);
 
   const [isChecked, toggleCheck] = useState(item.isChecked);
@@ -25,8 +25,7 @@ export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
       in={!removing || !item.isChecked}
       timeout={300}
       classNames={"item"}
-      unmountOnExit
-      onExited={() => removeItem(item.id)}>
+      unmountOnExit>
       <IonItem key={`${item.catId}:${item.name}`}>
         <IonCheckbox
           slot="start"

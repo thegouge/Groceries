@@ -21,15 +21,16 @@ import {add} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, GlobalContext} from "../context";
+import {CategoryContext, GlobalContext, ItemContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
 
-const Home: React.FC<RouteComponentProps> = (props) => {
+const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {toggleRemoving, reset} = useContext(GlobalContext);
+  const {reset} = useContext(GlobalContext);
+  const {removeChecked} = useContext(ItemContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
@@ -58,7 +59,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
           <IonMenuButton slot="start" />
           <IonTitle slot="start">Learning Ionic</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={toggleRemoving}>Remove Checked</IonButton>
+            <IonButton onClick={removeChecked}>Remove Checked</IonButton>
             <IonButton onClick={toggleCatReorder}>Edit</IonButton>
             <IonButton onClick={reset}>Delete Erryting</IonButton>
           </IonButtons>

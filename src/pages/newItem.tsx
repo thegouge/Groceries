@@ -71,7 +71,6 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
           quantity: quantity,
           category: category,
         });
-
         break;
 
       default:

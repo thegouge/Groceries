@@ -16,7 +16,7 @@ interface itemContextProps {
     category: number;
   }) => void;
   checkItem: (itemName: string) => void;
-  removeItem: (idToRemove: number) => void;
+  removeChecked: () => void;
 }
 
 const ItemContext = React.createContext({} as itemContextProps);
@@ -74,16 +74,21 @@ const ItemProvider = (props: any) => {
     saveItems(newList);
   };
 
-  const removeItem = (idToRemove: number) => {
-    const newList = itemsList.filter((item) => item.id !== idToRemove);
+  const removeChecked = () => {
+    const newList = itemsList.filter((item) => !item.isChecked);
 
-    setItemsList(newList);
     toggleRemoving();
-    saveItems(newList);
+
+    setTimeout(() => {
+      setItemsList(newList);
+      saveItems(newList);
+      toggleRemoving();
+    }, 300);
   };
 
   return (
-    <ItemContext.Provider value={{itemsList, checkItem, addItem, removeItem}}>
+    <ItemContext.Provider
+      value={{itemsList, checkItem, addItem, removeChecked}}>
       {props.children}
     </ItemContext.Provider>
   );
