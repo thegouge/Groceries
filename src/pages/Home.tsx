@@ -21,7 +21,7 @@ import {add} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, ItemContext, GlobalContext} from "../context";
+import {CategoryContext, GlobalContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
@@ -29,7 +29,7 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = (props) => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {toggleRemoving} = useContext(GlobalContext);
+  const {toggleRemoving, reset} = useContext(GlobalContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
@@ -60,6 +60,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
           <IonButtons slot="end">
             <IonButton onClick={toggleRemoving}>Remove Checked</IonButton>
             <IonButton onClick={toggleCatReorder}>Edit</IonButton>
+            <IonButton onClick={reset}>Delete Erryting</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>

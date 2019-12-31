@@ -25,9 +25,9 @@ const ItemProvider = (props: any) => {
 
   const {toggleRemoving} = useContext(GlobalContext);
 
-  const saveItems = async () => {
+  const saveItems = async (newList: ItemClass[]) => {
     console.log("Saving items...");
-    await Storage.set({key: "items", value: JSON.stringify(itemsList)});
+    await Storage.set({key: "items", value: JSON.stringify(newList)});
   };
 
   const loadItems = async () => {
@@ -59,22 +59,27 @@ const ItemProvider = (props: any) => {
     quantity: string;
     category: number;
   }) => {
-    const item = {
-      name: newItem.name,
-      quantity: newItem.quantity,
-      isChecked: false,
-      id: 8,
-      catId: newItem.category,
-    };
+    const newList = [
+      ...itemsList,
+      {
+        name: newItem.name,
+        quantity: newItem.quantity,
+        isChecked: false,
+        id: 8,
+        catId: newItem.category,
+      },
+    ];
 
-    setItemsList([...itemsList, item]);
-    saveItems();
+    setItemsList(newList);
+    saveItems(newList);
   };
 
   const removeItem = (idToRemove: number) => {
-    setItemsList(itemsList.filter((item) => item.id !== idToRemove));
+    const newList = itemsList.filter((item) => item.id !== idToRemove);
+
+    setItemsList(newList);
     toggleRemoving();
-    saveItems();
+    saveItems(newList);
   };
 
   return (

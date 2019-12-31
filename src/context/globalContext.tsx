@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
+import {Plugins} from "@capacitor/core";
 
-import {CategoryClass} from "../lib/interfaces";
+const {Storage} = Plugins;
 
 interface globalContextProps {
   removing: boolean;
   toggleRemoving: () => void;
+  reset: () => void;
 }
 
 const GlobalContext = React.createContext({} as globalContextProps);
@@ -16,8 +18,14 @@ const GlobalProvider = (props: any) => {
     setRemove(!removing);
   };
 
+  const reset = () => {
+    console.log("resetting EVERYTHING");
+
+    Storage.clear();
+  };
+
   return (
-    <GlobalContext.Provider value={{removing, toggleRemoving}}>
+    <GlobalContext.Provider value={{removing, toggleRemoving, reset}}>
       {props.children}
     </GlobalContext.Provider>
   );
