@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 
 import {ItemClass} from "../lib/interfaces";
 import {defaultItemList} from "../lib/defaultData";
@@ -31,11 +31,11 @@ const ItemProvider = (props: any) => {
   };
 
   const loadItems = async () => {
-    console.log("Loading Items...");
+    console.log("loading items...");
     const data = await Storage.get({key: "items"});
-
-    if (!data.value) {
-      return defaultItemList;
+    if (data.value === null) {
+      console.log("null!");
+      return itemsList;
     } else {
       return JSON.parse(data.value);
     }
@@ -53,6 +53,10 @@ const ItemProvider = (props: any) => {
       })
     );
   };
+
+  useEffect(() => {
+    loadItems().then((data) => setItemsList(data));
+  }, []);
 
   const addItem = (newItem: {
     name: string;
