@@ -9,6 +9,7 @@ const {Storage} = Plugins;
 interface catContextProps {
   categoriesList: CategoryClass[];
   addCategory: (category: any) => void;
+  removeCategory: (id: number) => void;
 }
 
 const CategoryContext = React.createContext({} as catContextProps);
@@ -49,8 +50,17 @@ const CategoryProvider = (props: any) => {
     saveCategories(newList);
   };
 
+  const removeCategory = (idToRemove: number) => {
+    console.log("removing category " + idToRemove);
+    const newList = categoriesList.filter((cat) => cat.id !== idToRemove);
+
+    setCategoriesList(newList);
+    saveCategories(newList);
+  };
+
   return (
-    <CategoryContext.Provider value={{categoriesList, addCategory}}>
+    <CategoryContext.Provider
+      value={{categoriesList, addCategory, removeCategory}}>
       {props.children}
     </CategoryContext.Provider>
   );

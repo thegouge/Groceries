@@ -8,11 +8,13 @@ import {
   IonLabel,
   IonReorder,
   IonIcon,
+  IonButton,
+  IonButtons,
 } from "@ionic/react";
 
 import {CategoryClass, ItemClass} from "../lib/interfaces";
-import {reorder, add} from "ionicons/icons";
-import {ItemContext} from "../context";
+import {reorder, add, trash} from "ionicons/icons";
+import {ItemContext, CategoryContext} from "../context";
 import {Item} from "./Item";
 
 interface Props {
@@ -22,6 +24,7 @@ interface Props {
 
 const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
   const {itemsList} = useContext(ItemContext);
+  const {removeCategory} = useContext(CategoryContext);
 
   const catItems = itemsList
     .filter((item) => item.catId === category.id)
@@ -38,9 +41,16 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
         <div style={{borderBottom: "1px solid grey"}}>
           <IonCardHeader>
             <IonCardTitle>
-              {isCatReorder && <IonIcon icon={reorder} />}
               {category.name}
+              {isCatReorder && (
+                <>
+                  <IonIcon icon={reorder} />{" "}
+                </>
+              )}
             </IonCardTitle>
+            <IonButton onClick={() => removeCategory(category.id)}>
+              <IonIcon icon={trash} />
+            </IonButton>
           </IonCardHeader>
         </div>
         <IonList>
