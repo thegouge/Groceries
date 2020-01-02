@@ -31,7 +31,7 @@ const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
   return (
     <div>
       <IonHeader>
-        <h3>Color Picker</h3>
+        <h4>Color Picker</h4>
       </IonHeader>
       <IonGrid>{colorGrid}</IonGrid>
       <div className="color" style={{backgroundColor: catColor}}>

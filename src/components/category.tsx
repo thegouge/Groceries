@@ -2,14 +2,11 @@ import React, {useContext} from "react";
 import {
   IonCard,
   IonCardHeader,
-  IonCardTitle,
   IonList,
   IonItem,
   IonLabel,
   IonReorder,
   IonIcon,
-  IonButton,
-  IonButtons,
 } from "@ionic/react";
 
 import {CategoryClass, ItemClass} from "../lib/interfaces";
@@ -40,17 +37,17 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
         }}>
         <div style={{borderBottom: "1px solid grey"}}>
           <IonCardHeader>
-            <IonCardTitle>
-              {category.name}
-              {isCatReorder && (
-                <>
-                  <IonIcon icon={reorder} />{" "}
-                </>
-              )}
-            </IonCardTitle>
-            <IonButton onClick={() => removeCategory(category.id)}>
-              <IonIcon icon={trash} />
-            </IonButton>
+            <h3>{category.name}</h3>
+            {isCatReorder && (
+              <div>
+                <IonIcon
+                  icon={trash}
+                  size="large"
+                  onClick={() => removeCategory(category.id)}
+                />
+                <IonIcon icon={reorder} size="large" />
+              </div>
+            )}
           </IonCardHeader>
         </div>
         <IonList>
