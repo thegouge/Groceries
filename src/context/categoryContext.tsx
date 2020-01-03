@@ -10,14 +10,18 @@ interface catContextProps {
   categoriesList: CategoryClass[];
   addCategory: (category: any) => void;
   removeCategory: (id: number) => void;
+  resetCats: () => void;
 }
 
 const CategoryContext = React.createContext({} as catContextProps);
+
 const CategoryProvider = (props: any) => {
+  // State
   const [categoriesList, setCategoriesList] = useState(
     defaultCategoriesList as CategoryClass[]
   );
 
+  // Methods
   const saveCategories = async (newList: CategoryClass[]) => {
     console.log("saving categories...");
     await Storage.set({
@@ -37,10 +41,6 @@ const CategoryProvider = (props: any) => {
     }
   };
 
-  useEffect(() => {
-    loadCategories().then((data) => setCategoriesList(data));
-  }, []);
-
   const addCategory = (categoryToAdd: {name: string; color: string}) => {
     const newList = [
       ...categoriesList,
@@ -58,9 +58,18 @@ const CategoryProvider = (props: any) => {
     saveCategories(newList);
   };
 
+  const resetCats = () => {
+    setCategoriesList(defaultCategoriesList);
+  };
+
+  // Render
+  useEffect(() => {
+    loadCategories().then((data) => setCategoriesList(data));
+  }, []);
+
   return (
     <CategoryContext.Provider
-      value={{categoriesList, addCategory, removeCategory}}>
+      value={{categoriesList, addCategory, removeCategory, resetCats}}>
       {props.children}
     </CategoryContext.Provider>
   );

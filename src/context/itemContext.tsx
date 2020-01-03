@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 
 import {ItemClass} from "../lib/interfaces";
-import {defaultItemList} from "../lib/defaultData";
+import {defaultItemList, defaultCategoriesList} from "../lib/defaultData";
 import {GlobalContext} from ".";
 
 import {Plugins} from "@capacitor/core";
@@ -17,14 +17,18 @@ interface itemContextProps {
   }) => void;
   checkItem: (itemName: string) => void;
   removeChecked: () => void;
+  loadItems: () => Promise<any>;
 }
 
 const ItemContext = React.createContext({} as itemContextProps);
 const ItemProvider = (props: any) => {
-  const [itemsList, setItemsList] = useState(defaultItemList);
-
+  // Context
   const {toggleRemoving} = useContext(GlobalContext);
 
+  // State
+  const [itemsList, setItemsList] = useState(defaultItemList);
+
+  // Methods
   const saveItems = async (newList: ItemClass[]) => {
     console.log("Saving items...");
     await Storage.set({key: "items", value: JSON.stringify(newList)});
@@ -53,10 +57,6 @@ const ItemProvider = (props: any) => {
       })
     );
   };
-
-  useEffect(() => {
-    loadItems().then((data) => setItemsList(data));
-  }, []);
 
   const addItem = (newItem: {
     name: string;
@@ -90,9 +90,14 @@ const ItemProvider = (props: any) => {
     }, 300);
   };
 
+  // Render
+  useEffect(() => {
+    loadItems().then((data) => setItemsList(data));
+  }, []);
+
   return (
     <ItemContext.Provider
-      value={{itemsList, checkItem, addItem, removeChecked}}>
+      value={{itemsList, checkItem, addItem, removeChecked, loadItems}}>
       {props.children}
     </ItemContext.Provider>
   );

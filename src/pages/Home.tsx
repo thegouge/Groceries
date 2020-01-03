@@ -21,7 +21,7 @@ import {add} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, GlobalContext, ItemContext} from "../context";
+import {CategoryContext, ItemContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
@@ -29,7 +29,6 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {reset} = useContext(GlobalContext);
   const {removeChecked} = useContext(ItemContext);
 
   // State
@@ -44,6 +43,7 @@ const Home: React.FC<RouteComponentProps> = () => {
     event.detail.complete();
   };
 
+  // Render
   const categoryList = categoriesList.map((category: CategoryClass) => (
     <Category
       category={category}
@@ -61,7 +61,6 @@ const Home: React.FC<RouteComponentProps> = () => {
           <IonButtons slot="end">
             <IonButton onClick={removeChecked}>Remove Checked</IonButton>
             <IonButton onClick={toggleCatReorder}>Edit</IonButton>
-            <IonButton onClick={reset}>Delete Erryting</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>

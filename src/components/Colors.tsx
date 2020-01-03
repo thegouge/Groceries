@@ -9,15 +9,20 @@ interface Props {
 }
 
 const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
+  // Methods
   const setSelectedColor = (color: string) => {
     setCatColor(color);
   };
 
+  // Render
   const mapThroughColors = (colorArray: string[], row: number) => {
     return colorArray.map((color: string, index) => (
       <IonCol
         key={row + "-" + index}
-        style={{cursor: "pointer", backgroundColor: color}}
+        style={{
+          cursor: "pointer",
+          backgroundColor: color,
+        }}
         onClick={() => setSelectedColor(color)}>
         &nbsp;
       </IonCol>
@@ -34,7 +39,11 @@ const Colors: React.FC<Props> = ({catColor, setCatColor}) => {
         <h4>Color Picker</h4>
       </IonHeader>
       <IonGrid>{colorGrid}</IonGrid>
-      <div className="color" style={{backgroundColor: catColor}}>
+      <div
+        className="color"
+        style={{
+          backgroundColor: catColor,
+        }}>
         <IonInput
           readonly={true}
           value={catColor}

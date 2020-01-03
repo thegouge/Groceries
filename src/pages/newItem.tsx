@@ -39,7 +39,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
   const {categoriesList, addCategory} = useContext(CategoryContext);
   const {addItem} = useContext(ItemContext);
 
-  // state
+  // State
   const [addType, setAddType] = useState(match.params.type);
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("0");
@@ -47,6 +47,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
   const [catColor, setCatColor] = useState("#FFFFFF");
   const [showModal, setShowModal] = useState(false);
 
+  // Methods
   const resetState = () => {
     setAddType(match.params.type);
     setName("");
@@ -81,6 +82,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
     history.push("/home");
   };
 
+  // Render
   let newForm;
 
   switch (addType) {

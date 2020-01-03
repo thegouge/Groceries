@@ -47,8 +47,10 @@ import {ItemProvider} from "./context";
 import "./global.css";
 
 const App: React.FC = (props) => {
+  // State
   // const [isLoggedIn, setLoggedIn] = useState(false);
 
+  // Render
   return (
     <IonApp>
       <IonReactRouter>

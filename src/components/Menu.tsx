@@ -17,8 +17,10 @@ import {home, settings} from "ionicons/icons";
 import {CategoryContext} from "../context";
 
 const Menu: React.FunctionComponent = () => {
+  // Context
   const {categoriesList} = useContext(CategoryContext);
 
+  // Render
   return (
     <IonMenu contentId="main">
       <IonHeader>

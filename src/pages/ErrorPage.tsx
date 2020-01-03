@@ -1,19 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 
 interface Props {
   errType: string;
 }
 
 export const ErrorPage: React.FC<Props> = ({errType}) => {
-  let errorMsg;
+  // State
+  const [errorMsg, setError] = useState("Something Has Gone Wrong");
 
+  // Render
   switch (errType) {
     case "no selected cat":
+      setError(
+        "Somehow you're on a Category Page without a Category to Select"
+      );
       break;
 
     default:
-      errorMsg = "Something has gone wrong";
       break;
   }
-  return <div></div>;
+
+  return <div>{errorMsg}</div>;
 };

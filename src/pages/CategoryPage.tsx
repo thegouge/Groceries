@@ -11,7 +11,7 @@ import {
   IonButton,
 } from "@ionic/react";
 
-import {CategoryContext, ItemContext, GlobalContext} from "../context";
+import {CategoryContext, GlobalContext} from "../context";
 import {ErrorPage} from "./ErrorPage";
 import Category from "../components/Category";
 
@@ -20,13 +20,16 @@ interface queryProps {
 }
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
+  // Context
   const {categoriesList} = useContext(CategoryContext);
   const {toggleRemoving} = useContext(GlobalContext);
 
+  // State
   const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
 
+  // Render
   if (!selectedCategory) {
     return <ErrorPage errType="no selected cat" />;
   }

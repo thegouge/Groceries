@@ -20,9 +20,11 @@ interface Props {
 }
 
 const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
+  // Context
   const {itemsList} = useContext(ItemContext);
   const {removeCategory} = useContext(CategoryContext);
 
+  // Render
   const catItems = itemsList
     .filter((item) => item.catId === category.id)
     .map((item: ItemClass) => (

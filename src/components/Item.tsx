@@ -10,16 +10,20 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
+  // Context
   const {checkItem} = useContext(ItemContext);
   const {removing} = useContext(GlobalContext);
 
+  // State
   const [isChecked, toggleCheck] = useState(item.isChecked);
 
+  // Methods
   const checkIt = () => {
     toggleCheck(!isChecked);
     checkItem(item.name);
   };
 
+  // Render
   return (
     <CSSTransition
       in={!removing || !item.isChecked}
