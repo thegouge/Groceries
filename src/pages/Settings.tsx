@@ -66,7 +66,7 @@ const Settings: React.FC<RouteComponentProps> = (props) => {
                   handler: () => {
                     reset()
                       .then(() => props.history.push("/home"))
-                      .catch();
+                      .catch((err) => console.error(err));
                   },
                 },
               ]}

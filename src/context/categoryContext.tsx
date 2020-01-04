@@ -17,9 +17,7 @@ const CategoryContext = React.createContext({} as catContextProps);
 
 const CategoryProvider = (props: any) => {
   // State
-  const [categoriesList, setCategoriesList] = useState(
-    defaultCategoriesList as CategoryClass[]
-  );
+  const [categoriesList, setCategoriesList] = useState(defaultCategoriesList);
 
   // Methods
   const saveCategories = async (newList: CategoryClass[]) => {

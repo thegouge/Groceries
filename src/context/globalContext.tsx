@@ -29,7 +29,6 @@ const GlobalProvider = (props: any) => {
     console.log("resetting EVERYTHING");
 
     await Storage.clear();
-    resetCats();
   };
 
   return (

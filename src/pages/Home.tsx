@@ -14,6 +14,7 @@ import {
   IonIcon,
   IonLabel,
   IonItem,
+  IonReorder,
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
 import {RouteComponentProps} from "react-router";
@@ -44,13 +45,20 @@ const Home: React.FC<RouteComponentProps> = () => {
   };
 
   // Render
-  const categoryList = categoriesList.map((category: CategoryClass) => (
-    <Category
-      category={category}
-      key={`${category.name}-card`}
-      isCatReorder={isCatReorder}
-    />
-  ));
+  const categoryList = categoriesList.map((category: CategoryClass) => {
+    const catCard = (
+      <Category
+        category={category}
+        key={`${category.name}-card`}
+        isCatReorder={isCatReorder}
+      />
+    );
+    if (isCatReorder) {
+      return <IonReorder>{catCard}</IonReorder>;
+    } else {
+      return catCard;
+    }
+  });
 
   return (
     <IonPage>
@@ -65,7 +73,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonReorderGroup onIonItemReorder={doReorder}>
+        <IonReorderGroup disabled={!isCatReorder} onIonItemReorder={doReorder}>
           {categoryList}
           <IonCard routerLink={"/new/category/0"}>
             <IonItem>
