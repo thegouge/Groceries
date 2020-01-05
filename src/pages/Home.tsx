@@ -15,14 +15,16 @@ import {
   IonLabel,
   IonItem,
   IonReorder,
+  IonPopover,
+  IonList,
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
 import {RouteComponentProps} from "react-router";
-import {add} from "ionicons/icons";
+import {add, options, moon} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, ItemContext} from "../context";
+import {CategoryContext, ItemContext, GlobalContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
@@ -31,9 +33,11 @@ const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
   const {removeChecked} = useContext(ItemContext);
+  const {toggleDarkMode} = useContext(GlobalContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   const toggleCatReorder = () => {
     setCatReorder(!isCatReorder);
@@ -65,10 +69,26 @@ const Home: React.FC<RouteComponentProps> = () => {
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot="start" />
-          <IonTitle slot="start">Learning Ionic</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={removeChecked}>Remove Checked</IonButton>
-            <IonButton onClick={toggleCatReorder}>Edit</IonButton>
+            <IonIcon size="large" onClick={toggleDarkMode} icon={moon} />
+            <IonIcon
+              size="large"
+              onClick={() => setShowOptions(true)}
+              icon={options}
+            />
+            <IonPopover
+              isOpen={showOptions}
+              onDidDismiss={(e) => setShowOptions(false)}
+              >
+              <IonList>
+                <IonItem button onClick={() => {removeChecked(); setShowOptions(false);}}>
+                  Delete Checked
+                </IonItem>
+                <IonItem button onClick={() => {toggleCatReorder(); setShowOptions(false);}}>
+                  Edit
+                </IonItem>
+              </IonList>
+            </IonPopover>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
