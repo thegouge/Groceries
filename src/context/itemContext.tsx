@@ -23,7 +23,7 @@ interface itemContextProps {
 const ItemContext = React.createContext({} as itemContextProps);
 const ItemProvider = (props: any) => {
   // Context
-  const {toggleRemoving} = useContext(GlobalContext);
+  const {setRemove} = useContext(GlobalContext);
 
   // State
   const [itemsList, setItemsList] = useState(defaultItemList);
@@ -81,12 +81,12 @@ const ItemProvider = (props: any) => {
   const removeChecked = () => {
     const newList = itemsList.filter((item) => !item.isChecked);
 
-    toggleRemoving();
+    setRemove(true);
 
     setTimeout(() => {
       setItemsList(newList);
       saveItems(newList);
-      toggleRemoving();
+      setRemove(false);
     }, 300);
   };
 

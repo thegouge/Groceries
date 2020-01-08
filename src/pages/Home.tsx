@@ -71,6 +71,7 @@ const Home: React.FC<RouteComponentProps> = () => {
           <IonMenuButton slot="start" />
           <IonTitle>Groceries</IonTitle>
           <IonButtons slot="end">
+            {/* <IonIcon size="large" onClick={toggleDarkMode} icon={moon} /> */}
             <IonIcon
               size="large"
               onClick={() => setShowOptions(true)}

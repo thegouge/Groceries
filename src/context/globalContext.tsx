@@ -7,7 +7,7 @@ const {Storage} = Plugins;
 
 interface globalContextProps {
   removing: boolean;
-  toggleRemoving: () => void;
+  setRemove: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => Promise<any>;
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -24,10 +24,6 @@ const GlobalProvider = (props: any) => {
   const [removing, setRemove] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-  const toggleRemoving = () => {
-    setRemove(!removing);
-  };
-
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -39,7 +35,7 @@ const GlobalProvider = (props: any) => {
 
   return (
     <GlobalContext.Provider
-      value={{removing, toggleRemoving, reset, darkMode, toggleDarkMode}}>
+      value={{removing, setRemove, reset, darkMode, toggleDarkMode}}>
       {props.children}
     </GlobalContext.Provider>
   );

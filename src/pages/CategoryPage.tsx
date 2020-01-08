@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {
   IonPage,
@@ -9,11 +9,16 @@ import {
   IonTitle,
   IonButtons,
   IonButton,
+  IonIcon,
+  IonPopover,
+  IonList,
+  IonItem,
 } from "@ionic/react";
 
 import {CategoryContext, GlobalContext} from "../context";
 import {ErrorPage} from "./ErrorPage";
 import Category from "../components/Category";
+import { options } from "ionicons/icons";
 
 interface queryProps {
   id: string;
@@ -22,12 +27,18 @@ interface queryProps {
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {toggleRemoving} = useContext(GlobalContext);
+  const {setRemove} = useContext(GlobalContext);
 
   // State
   const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
+  const [showOptions, setShowOptions] = useState(false);
+
+  // Methods
+  const removeCatChecked = () => {
+    
+  }
 
   // Render
   if (!selectedCategory) {
@@ -40,9 +51,39 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
         <IonToolbar>
           <IonMenuButton slot="start" />
           <IonTitle slot="start">{selectedCategory.name}</IonTitle>
+          
           <IonButtons slot="end">
-            <IonButton onClick={toggleRemoving}>Remove Checked</IonButton>
-          </IonButtons>
+            {/* <IonIcon size="large" onClick={toggleDarkMode} icon={moon} /> */}
+            <IonIcon
+              size="large"
+              onClick={() => setShowOptions(true)}
+              icon={options}
+            />
+            <IonPopover
+              isOpen={showOptions}
+              onDidDismiss={(e) => setShowOptions(false)}>
+              <IonList>
+                <IonItem
+                  button
+                  onClick={() => {
+                    removeCatChecked();
+                    setShowOptions(false);
+                  }}>
+                  Delete Checked
+                </IonItem>
+                {/* 
+                  // TODO: add a seperate reorder function for items
+                <IonItem
+                  button
+                  onClick={() => {
+                    toggleItemReorder();
+                    setShowOptions(false);
+                  }}>
+                  Edit
+                </IonItem> */}
+              </IonList>
+            </IonPopover>
+            </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
