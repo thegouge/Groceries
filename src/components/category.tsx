@@ -7,6 +7,7 @@ import {
   IonLabel,
   IonReorder,
   IonIcon,
+  IonTitle,
 } from "@ionic/react";
 
 import {CategoryClass, ItemClass} from "../lib/interfaces";
@@ -31,25 +32,23 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
       <Item key={item.name} item={item} isCatReorder={isCatReorder} />
     ));
 
+    const currentIcon = (isCatReorder) ? 
+    <IonIcon icon={reorder} size="large" /> 
+    : <IonIcon icon={trash} size="large" onClick={() => removeCategory(category.id)}
+  /> 
+
   const categoryCard = (
     <IonCard>
       <div
         style={{
           backgroundColor: category.color,
         }}>
-        <div style={{borderBottom: "1px solid grey"}}>
+        <div style={{borderBottom: "1px solid grey", clear:"both"}}>
           <IonCardHeader>
             <h3>{category.name}</h3>
-            {isCatReorder && (
-              <div>
-                <IonIcon
-                  icon={trash}
-                  size="large"
-                  onClick={() => removeCategory(category.id)}
-                />
-                <IonIcon icon={reorder} size="large" />
+              <div className="pull-right">
+                {currentIcon}
               </div>
-            )}
           </IonCardHeader>
         </div>
         <IonList>

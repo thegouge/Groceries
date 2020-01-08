@@ -78,8 +78,14 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
         break;
     }
 
-    resetState();
-    history.push("/home");
+    
+
+    if(category === categoriesList.length && addType === "grocery") {
+      history.push(`/new/category/${category}`);
+    } else {
+      resetState();
+      history.push("/home");
+    }
   };
 
   // Render
@@ -110,7 +116,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
                   {category.name}
                 </IonSelectOption>
               ))}
-              <IonSelectOption value="new">Make new Category</IonSelectOption>
+              <IonSelectOption value={categoriesList.length}>Make new Category</IonSelectOption>
             </IonSelect>
           </IonItem>
         </form>

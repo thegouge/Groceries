@@ -69,8 +69,8 @@ const Home: React.FC<RouteComponentProps> = () => {
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot="start" />
+          <IonTitle>Groceries</IonTitle>
           <IonButtons slot="end">
-            <IonIcon size="large" onClick={toggleDarkMode} icon={moon} />
             <IonIcon
               size="large"
               onClick={() => setShowOptions(true)}
@@ -78,13 +78,22 @@ const Home: React.FC<RouteComponentProps> = () => {
             />
             <IonPopover
               isOpen={showOptions}
-              onDidDismiss={(e) => setShowOptions(false)}
-              >
+              onDidDismiss={(e) => setShowOptions(false)}>
               <IonList>
-                <IonItem button onClick={() => {removeChecked(); setShowOptions(false);}}>
+                <IonItem
+                  button
+                  onClick={() => {
+                    removeChecked();
+                    setShowOptions(false);
+                  }}>
                   Delete Checked
                 </IonItem>
-                <IonItem button onClick={() => {toggleCatReorder(); setShowOptions(false);}}>
+                <IonItem
+                  button
+                  onClick={() => {
+                    toggleCatReorder();
+                    setShowOptions(false);
+                  }}>
                   Edit
                 </IonItem>
               </IonList>
