@@ -36,8 +36,8 @@ const Category: React.FC<Props> = ({
   );
 
   // Methods
-  const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
-    setCatItemsList(event.detail.complete(catItemsList));
+  const doReorder = (e: CustomEvent<ItemReorderEventDetail>) => {
+    setCatItemsList(e.detail.complete(catItemsList));
   };
 
   // Render
