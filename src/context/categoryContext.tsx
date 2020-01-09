@@ -8,6 +8,7 @@ const {Storage} = Plugins;
 
 interface catContextProps {
   categoriesList: CategoryClass[];
+  setCategoriesList: React.Dispatch<React.SetStateAction<CategoryClass[]>>;
   addCategory: (category: any) => void;
   removeCategory: (id: number) => void;
   resetCats: () => void;
@@ -67,7 +68,13 @@ const CategoryProvider = (props: any) => {
 
   return (
     <CategoryContext.Provider
-      value={{categoriesList, addCategory, removeCategory, resetCats}}>
+      value={{
+        categoriesList,
+        setCategoriesList,
+        addCategory,
+        removeCategory,
+        resetCats,
+      }}>
       {props.children}
     </CategoryContext.Provider>
   );
