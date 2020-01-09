@@ -10,6 +10,7 @@ const {Storage} = Plugins;
 
 interface itemContextProps {
   itemsList: ItemClass[];
+  setItemsList: React.Dispatch<React.SetStateAction<ItemClass[]>>;
   addItem: (newItem: {
     name: string;
     quantity: string;
@@ -69,7 +70,7 @@ const ItemProvider = (props: any) => {
         name: newItem.name,
         quantity: newItem.quantity,
         isChecked: false,
-        id: 8,
+        id: itemsList.length,
         catId: newItem.category,
       },
     ];
@@ -97,7 +98,14 @@ const ItemProvider = (props: any) => {
 
   return (
     <ItemContext.Provider
-      value={{itemsList, checkItem, addItem, removeChecked, loadItems}}>
+      value={{
+        itemsList,
+        setItemsList,
+        checkItem,
+        addItem,
+        removeChecked,
+        loadItems,
+      }}>
       {props.children}
     </ItemContext.Provider>
   );
