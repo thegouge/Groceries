@@ -11,9 +11,6 @@ import {
   IonIcon,
   IonList,
   IonLabel,
-  IonButton,
-  IonPopover,
-  IonText,
   IonAlert,
 } from "@ionic/react";
 import {trash} from "ionicons/icons";
