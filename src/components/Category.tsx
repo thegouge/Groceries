@@ -12,7 +12,7 @@ import {
 
 import {CategoryClass, ItemClass} from "../lib/interfaces";
 import {reorder, add, trash} from "ionicons/icons";
-import {ItemContext, CategoryContext} from "../context";
+import {CategoryContext} from "../context";
 import {Item} from "./Item";
 
 interface Props {
@@ -22,15 +22,12 @@ interface Props {
 
 const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
   // Context
-  const {itemsList} = useContext(ItemContext);
   const {removeCategory} = useContext(CategoryContext);
 
   // Render
-  const catItems = itemsList
-    .filter((item) => item.catId === category.id)
-    .map((item: ItemClass) => (
-      <Item key={item.name} item={item} isCatReorder={isCatReorder} />
-    ));
+  const catItems = category.list.map((item: ItemClass) => (
+    <Item key={item.name} item={item} isCatReorder={isCatReorder} />
+  ));
 
   const currentIcon = isCatReorder ? (
     <IonIcon icon={reorder} size="large" />

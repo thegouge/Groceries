@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {ItemClass} from "../lib/interfaces";
-import {ItemContext, GlobalContext} from "../context";
+import {GlobalContext} from "../context";
 import {IonItem, IonCheckbox, IonLabel, IonNote} from "@ionic/react";
 import {CSSTransition} from "react-transition-group";
 
@@ -11,7 +11,6 @@ interface Props {
 
 export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
   // Context
-  const {checkItem} = useContext(ItemContext);
   const {removing} = useContext(GlobalContext);
 
   // State
@@ -20,7 +19,6 @@ export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
   // Methods
   const checkIt = () => {
     toggleCheck(!isChecked);
-    checkItem(item.name);
   };
 
   // Render
@@ -30,7 +28,7 @@ export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
       timeout={300}
       classNames={"item"}
       unmountOnExit>
-      <IonItem key={`${item.catId}:${item.name}`}>
+      <IonItem key={`${item.name}`}>
         <IonCheckbox
           slot="start"
           onClick={checkIt}

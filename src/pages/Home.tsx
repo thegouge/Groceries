@@ -24,7 +24,7 @@ import {add, options, moon} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, ItemContext, GlobalContext} from "../context";
+import {CategoryContext, GlobalContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
@@ -32,7 +32,6 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {removeChecked} = useContext(ItemContext);
   const {toggleDarkMode} = useContext(GlobalContext);
 
   // State
@@ -84,7 +83,7 @@ const Home: React.FC<RouteComponentProps> = () => {
                 <IonItem
                   button
                   onClick={() => {
-                    removeChecked();
+                    // removeChecked();
                     setShowOptions(false);
                   }}>
                   Delete Checked

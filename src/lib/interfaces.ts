@@ -8,12 +8,12 @@ export interface CategoryClass {
   id: number;
   name: string;
   color: string;
+  list: ItemClass[];
   // icon: any;
 }
 
 export interface ItemClass {
   id: number;
-  catId: number;
   name: string;
   quantity: string;
   isChecked: boolean;

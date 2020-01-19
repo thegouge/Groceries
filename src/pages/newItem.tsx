@@ -22,7 +22,7 @@ import {
 import React, {useState, useContext} from "react";
 
 import Colors from "../components/Colors";
-import {CategoryContext, ItemContext} from "../context";
+import {CategoryContext} from "../context";
 import {CategoryClass} from "../lib/interfaces";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 
@@ -37,7 +37,6 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
 }) => {
   // Context
   const {categoriesList, addCategory} = useContext(CategoryContext);
-  const {addItem} = useContext(ItemContext);
 
   // State
   const [addType, setAddType] = useState(match.params.type);
@@ -67,20 +66,18 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
         break;
 
       case "grocery":
-        addItem({
-          name: name,
-          quantity: quantity,
-          category: category,
-        });
+        // addItem({
+        //   name: name,
+        //   quantity: quantity,
+        //   category: category,
+        // });
         break;
 
       default:
         break;
     }
 
-    
-
-    if(category === categoriesList.length && addType === "grocery") {
+    if (category === categoriesList.length && addType === "grocery") {
       history.push(`/new/category/${category}`);
     } else {
       resetState();
@@ -116,7 +113,9 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
                   {category.name}
                 </IonSelectOption>
               ))}
-              <IonSelectOption value={categoriesList.length}>Make new Category</IonSelectOption>
+              <IonSelectOption value={categoriesList.length}>
+                Make new Category
+              </IonSelectOption>
             </IonSelect>
           </IonItem>
         </form>

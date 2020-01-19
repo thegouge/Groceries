@@ -1,13 +1,6 @@
 import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonSplitPane,
-  IonFab,
-  IonFabButton,
-  IonIcon,
-} from "@ionic/react";
+import {IonApp, IonRouterOutlet, IonSplitPane} from "@ionic/react";
 import {IonReactRouter} from "@ionic/react-router";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -41,7 +34,6 @@ import Menu from "./components/Menu";
 /* Context */
 import {CategoryProvider} from "./context";
 import {GlobalProvider} from "./context";
-import {ItemProvider} from "./context";
 
 /* custom Styles */
 import "./global.css";
@@ -57,17 +49,15 @@ const App: React.FC = (props) => {
         <IonSplitPane contentId="main">
           <GlobalProvider>
             <CategoryProvider>
-              <ItemProvider>
-                <Menu />
-                <IonRouterOutlet id="main">
-                  <Route exact path="/home" component={Home} />
-                  <Route exact path="/new/:type/:initial" component={NewItem} />
-                  <Route exact path="/category/:id" component={CategoryPage} />
-                  <Route exact path="/settings" component={Settings} />
-                  <Route exact path="/login" component={Login} />
-                  <Redirect exact from="/" to="/home" />
-                </IonRouterOutlet>
-              </ItemProvider>
+              <Menu />
+              <IonRouterOutlet id="main">
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/new/:type/:initial" component={NewItem} />
+                <Route exact path="/category/:id" component={CategoryPage} />
+                <Route exact path="/settings" component={Settings} />
+                <Route exact path="/login" component={Login} />
+                <Redirect exact from="/" to="/home" />
+              </IonRouterOutlet>
             </CategoryProvider>
           </GlobalProvider>
         </IonSplitPane>

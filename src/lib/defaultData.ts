@@ -19,29 +19,28 @@ export const defaultCategoriesList = [
     id: 0,
     name: "Starting Category",
     color: "#3399FF",
+    list: [
+      {
+        id: 0,
+        name: "click on items to 'check' them",
+        quantity:
+          "You can remove all checked items using the button in the top right",
+        isChecked: false,
+      },
+    ],
   },
   {
     id: 1,
     name: "Bulk Foods",
     color: "#999900",
-  },
-];
-
-export const defaultItemList = [
-  {
-    id: 0,
-    catId: 0,
-    name: "click on items to 'check' them",
-    quantity:
-      "You can remove all checked items using the button in the top right",
-    isChecked: false,
-  },
-  {
-    id: 1,
-    catId: 1,
-    name: "Rice",
-    quantity: "2lbs",
-    isChecked: false,
+    list: [
+      {
+        id: 1,
+        name: "Rice",
+        quantity: "2lbs",
+        isChecked: false,
+      },
+    ],
   },
 ];
 

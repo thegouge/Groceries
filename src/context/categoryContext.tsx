@@ -42,7 +42,7 @@ const CategoryProvider = (props: any) => {
   const addCategory = (categoryToAdd: {name: string; color: string}) => {
     const newList = [
       ...categoriesList,
-      {...categoryToAdd, id: categoriesList.length},
+      {...categoryToAdd, id: categoriesList.length, list: []},
     ];
     setCategoriesList(newList);
     saveCategories(newList);
