@@ -7,7 +7,6 @@ const {Storage} = Plugins;
 interface globalContextProps {
   removing: boolean;
   setRemove: React.Dispatch<React.SetStateAction<boolean>>;
-  removeAllChecked: () => void;
   reset: () => Promise<any>;
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -33,18 +32,11 @@ const GlobalProvider = (props: any) => {
     await Storage.clear();
   };
 
-  const removeAllChecked = () => {
-    categoriesList.forEach((cat, i) => {
-      removeCatChecked(i);
-    });
-  };
-
   return (
     <GlobalContext.Provider
       value={{
         removing,
         setRemove,
-        removeAllChecked,
         reset,
         darkMode,
         toggleDarkMode,

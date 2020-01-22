@@ -30,13 +30,13 @@ import Category from "../components/Category";
 
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
-  const {categoriesList} = useContext(CategoryContext);
-  const {removeAllChecked} = useContext(GlobalContext);
+  const {categoriesList, removeCatChecked} = useContext(CategoryContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
+  // Methods
   const toggleCatReorder = () => {
     setCatReorder(!isCatReorder);
   };
@@ -44,6 +44,12 @@ const Home: React.FC<RouteComponentProps> = () => {
   const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
     console.log("Dragged from index", event.detail.from, "to", event.detail.to);
     event.detail.complete();
+  };
+
+  const removeAllChecked = () => {
+    categoriesList.forEach((cat, i) => {
+      removeCatChecked(i);
+    });
   };
 
   // Render

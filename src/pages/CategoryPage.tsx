@@ -55,7 +55,7 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
             />
             <IonPopover
               isOpen={showOptions}
-              onDidDismiss={(e) => setShowOptions(false)}>
+              onDidDismiss={() => setShowOptions(false)}>
               <IonList>
                 <IonItem
                   button
