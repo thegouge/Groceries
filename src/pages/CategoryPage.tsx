@@ -27,7 +27,7 @@ interface queryProps {
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   // Context
   const {categoriesList, removeCatChecked} = useContext(CategoryContext);
-  const {setRemove} = useContext(GlobalContext);
+  const {removeAnimation} = useContext(GlobalContext);
 
   // State
   const selectedCategory = categoriesList.find(

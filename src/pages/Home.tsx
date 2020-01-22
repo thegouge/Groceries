@@ -31,6 +31,7 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList, removeCatChecked} = useContext(CategoryContext);
+  const {removeAnimation} = useContext(GlobalContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);

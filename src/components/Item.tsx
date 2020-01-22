@@ -6,12 +6,14 @@ import {CSSTransition} from "react-transition-group";
 
 interface Props {
   item: ItemClass;
+  index: number;
   catIndex: number;
   isCatReorder?: boolean;
 }
 
 export const Item: React.FC<Props> = ({
   item,
+  index,
   catIndex,
   isCatReorder = false,
 }) => {
@@ -25,7 +27,7 @@ export const Item: React.FC<Props> = ({
   // Methods
   const checkIt = () => {
     toggleCheck(!isChecked);
-    checkItem(catIndex, item.id);
+    checkItem(catIndex, index);
   };
 
   // Render
