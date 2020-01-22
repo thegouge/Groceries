@@ -1,0 +1,62 @@
+.pull-right {
+  float: right;
+  color: black;
+}
+
+.checked {
+  text-decoration: line-through;
+}
+
+.item {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.item-enter {
+  transform: translateX(-200%);
+}
+
+.item-enter-active {
+  transform: translateX(0);
+}
+
+.item-exit {
+  transform: translateX(0);
+}
+
+.item-exit-active {
+  transform: translateX(200%);
+}
+
+h3 {
+  display: inline-block;
+  color: black;
+  width: fit-content;
+  margin: 0;
+}
+
+h4 {
+  text-align: center;
+}
+
+.color-picker-interior {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.color-picker-button {
+  height: 90%;
+  width: 20%;
+  background-color: rgb(144, 238, 144);
+}
+
+.color {
+  width: 100%;
+  text-align: center;
+  padding: 5px 0;
+  margin-top: 5px;
+}
