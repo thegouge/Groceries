@@ -5,15 +5,13 @@ interface Props {
 }
 
 export const ErrorPage: React.FC<Props> = ({errType}) => {
-  // State
-  const [errorMsg, setError] = useState("Something Has Gone Wrong");
+  let errorMsg = "";
 
   // Render
   switch (errType) {
     case "no selected cat":
-      setError(
-        "Somehow you're on a Category Page without a Category to Select"
-      );
+      errorMsg =
+        "Somehow you're on a Category Page without a Category to Select";
       break;
 
     default:

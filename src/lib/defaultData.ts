@@ -22,9 +22,16 @@ export const defaultCategoriesList = [
     list: [
       {
         id: 0,
-        name: "click on items to 'check' them",
+        name: "Click on items to 'check' them",
         quantity:
           "You can remove all checked items using the button in the top right",
+        isChecked: false,
+      },
+      {
+        id: 1,
+        name:
+          "You can also remove whole categories using the trash can in the category card's top-right corner",
+        quantity: "Feel free to delete this category and get started!",
         isChecked: false,
       },
     ],
@@ -35,7 +42,7 @@ export const defaultCategoriesList = [
     color: "#999900",
     list: [
       {
-        id: 1,
+        id: 0,
         name: "Rice",
         quantity: "2lbs",
         isChecked: false,

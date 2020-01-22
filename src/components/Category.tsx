@@ -14,6 +14,7 @@ import {CategoryClass, ItemClass} from "../lib/interfaces";
 import {reorder, add, trash} from "ionicons/icons";
 import {CategoryContext} from "../context";
 import {Item} from "./Item";
+import {RouteComponentProps, withRouter, useHistory} from "react-router";
 
 interface Props {
   category: CategoryClass;
@@ -23,6 +24,13 @@ interface Props {
 const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
   // Context
   const {removeCategory} = useContext(CategoryContext);
+  const history = useHistory();
+
+  // Methods
+  const removeSelf = (catId: number) => {
+    history.push("/home");
+    removeCategory(catId);
+  };
 
   // Render
   const catItems = category.list.map((item: ItemClass) => (
@@ -40,7 +48,7 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
     <IonIcon
       icon={trash}
       size="large"
-      onClick={() => removeCategory(category.id)}
+      onClick={() => removeSelf(category.id)}
     />
   );
 
