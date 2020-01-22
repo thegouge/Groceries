@@ -51,7 +51,7 @@ h4 {
 .color-picker-button {
   height: 90%;
   width: 20%;
-  background-color: lightgreen;
+  background-color: rgb(144, 238, 144);
 }
 
 .color {

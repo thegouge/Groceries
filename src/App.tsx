@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import {IonApp, IonRouterOutlet, IonSplitPane} from "@ionic/react";
 import {IonReactRouter} from "@ionic/react-router";
@@ -38,7 +38,7 @@ import {GlobalProvider} from "./context";
 /* custom Styles */
 import "./global.css";
 
-const App: React.FC = (props) => {
+const App: React.FC = () => {
   // State
   // const [isLoggedIn, setLoggedIn] = useState(false);
 
