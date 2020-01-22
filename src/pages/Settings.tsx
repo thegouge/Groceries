@@ -62,14 +62,17 @@ const Settings: React.FC<RouteComponentProps> = (props) => {
                   text: "Yes",
                   handler: () => {
                     reset()
-                      .then(() => props.history.push("/home"))
+                      .then(() => {
+                        props.history.push("/home");
+                        window.location.reload(false);
+                      })
                       .catch((err) => console.error(err));
                   },
                 },
               ]}
             />
             <IonIcon slot="start" icon={trash} />
-            <IonLabel>Delete Erryting</IonLabel>
+            <IonLabel>Reset The Whole List</IonLabel>
           </IonItem>
         </IonList>
       </IonContent>
