@@ -6,7 +6,6 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonButton,
   IonReorderGroup,
   IonMenuButton,
   IonButtons,
@@ -20,7 +19,7 @@ import {
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
 import {RouteComponentProps} from "react-router";
-import {add, options, moon} from "ionicons/icons";
+import {add, options} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
@@ -32,7 +31,7 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList} = useContext(CategoryContext);
-  const {toggleDarkMode} = useContext(GlobalContext);
+  const {removeAllChecked} = useContext(GlobalContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
@@ -83,7 +82,7 @@ const Home: React.FC<RouteComponentProps> = () => {
                 <IonItem
                   button
                   onClick={() => {
-                    // removeChecked();
+                    removeAllChecked();
                     setShowOptions(false);
                   }}>
                   Delete Checked

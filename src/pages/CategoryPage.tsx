@@ -18,7 +18,7 @@ import {
 import {CategoryContext, GlobalContext} from "../context";
 import {ErrorPage} from "./ErrorPage";
 import Category from "../components/Category";
-import { options } from "ionicons/icons";
+import {options} from "ionicons/icons";
 
 interface queryProps {
   id: string;
@@ -26,7 +26,7 @@ interface queryProps {
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   // Context
-  const {categoriesList} = useContext(CategoryContext);
+  const {categoriesList, removeCatChecked} = useContext(CategoryContext);
   const {setRemove} = useContext(GlobalContext);
 
   // State
@@ -34,11 +34,6 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
     (category) => `${category.id}` === match.params.id
   );
   const [showOptions, setShowOptions] = useState(false);
-
-  // Methods
-  const removeCatChecked = () => {
-    
-  }
 
   // Render
   if (!selectedCategory) {
@@ -51,9 +46,8 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
         <IonToolbar>
           <IonMenuButton slot="start" />
           <IonTitle slot="start">{selectedCategory.name}</IonTitle>
-          
+
           <IonButtons slot="end">
-            {/* <IonIcon size="large" onClick={toggleDarkMode} icon={moon} /> */}
             <IonIcon
               size="large"
               onClick={() => setShowOptions(true)}
@@ -66,7 +60,7 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
                 <IonItem
                   button
                   onClick={() => {
-                    removeCatChecked();
+                    removeCatChecked(selectedCategory.id);
                     setShowOptions(false);
                   }}>
                   Delete Checked
@@ -83,7 +77,7 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
                 </IonItem> */}
               </IonList>
             </IonPopover>
-            </IonButtons>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>

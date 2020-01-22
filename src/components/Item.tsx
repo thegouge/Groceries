@@ -1,17 +1,23 @@
 import React, {useContext, useState} from "react";
 import {ItemClass} from "../lib/interfaces";
-import {GlobalContext} from "../context";
+import {GlobalContext, CategoryContext} from "../context";
 import {IonItem, IonCheckbox, IonLabel, IonNote} from "@ionic/react";
 import {CSSTransition} from "react-transition-group";
 
 interface Props {
   item: ItemClass;
+  catIndex: number;
   isCatReorder?: boolean;
 }
 
-export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
+export const Item: React.FC<Props> = ({
+  item,
+  catIndex,
+  isCatReorder = false,
+}) => {
   // Context
   const {removing} = useContext(GlobalContext);
+  const {checkItem} = useContext(CategoryContext);
 
   // State
   const [isChecked, toggleCheck] = useState(item.isChecked);
@@ -19,6 +25,7 @@ export const Item: React.FC<Props> = ({item, isCatReorder = false}) => {
   // Methods
   const checkIt = () => {
     toggleCheck(!isChecked);
+    checkItem(catIndex, item.id);
   };
 
   // Render

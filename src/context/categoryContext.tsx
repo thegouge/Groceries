@@ -11,6 +11,8 @@ interface catContextProps {
   addCategory: (category: any) => void;
   removeCategory: (id: number) => void;
   resetCats: () => void;
+  checkItem: (catIndex: number, itemIndex: number) => void;
+  removeCatChecked: (catIndex: number) => void;
 }
 
 const CategoryContext = React.createContext({} as catContextProps);
@@ -60,6 +62,29 @@ const CategoryProvider = (props: any) => {
     setCategoriesList(defaultCategoriesList);
   };
 
+  const addItem = () => {};
+
+  const checkItem = (catIndex: number, itemIndex: number) => {
+    console.time("check Item");
+    const newCatList = categoriesList.slice();
+    const cat = newCatList[catIndex];
+    cat.list[itemIndex] = Object.assign(cat.list[itemIndex], {isChecked: true});
+
+    newCatList[catIndex] = cat;
+    setCategoriesList(newCatList);
+    console.timeEnd("check Item");
+  };
+
+  const removeCatChecked = (catIndex: number) => {
+    const newCatList = categoriesList.slice();
+    const cat = newCatList[catIndex];
+
+    cat.list = cat.list.filter((item) => !item.isChecked);
+
+    newCatList[catIndex] = cat;
+    setCategoriesList(newCatList);
+  };
+
   // Render
   useEffect(() => {
     loadCategories().then((data) => setCategoriesList(data));
@@ -67,7 +92,14 @@ const CategoryProvider = (props: any) => {
 
   return (
     <CategoryContext.Provider
-      value={{categoriesList, addCategory, removeCategory, resetCats}}>
+      value={{
+        categoriesList,
+        addCategory,
+        removeCategory,
+        resetCats,
+        checkItem,
+        removeCatChecked,
+      }}>
       {props.children}
     </CategoryContext.Provider>
   );

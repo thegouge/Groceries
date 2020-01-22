@@ -26,7 +26,12 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
 
   // Render
   const catItems = category.list.map((item: ItemClass) => (
-    <Item key={item.name} item={item} isCatReorder={isCatReorder} />
+    <Item
+      key={item.name}
+      item={item}
+      isCatReorder={isCatReorder}
+      catIndex={category.id}
+    />
   ));
 
   const currentIcon = isCatReorder ? (
