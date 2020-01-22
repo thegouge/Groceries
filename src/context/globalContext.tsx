@@ -6,8 +6,7 @@ const {Storage} = Plugins;
 
 interface globalContextProps {
   removing: boolean;
-  setRemove: React.Dispatch<React.SetStateAction<boolean>>;
-  removeAllChecked: () => void;
+  removeAnimation: () => void;
   reset: () => Promise<any>;
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -16,9 +15,6 @@ interface globalContextProps {
 const GlobalContext = React.createContext({} as globalContextProps);
 
 const GlobalProvider = (props: any) => {
-  // Context
-  const {categoriesList, removeCatChecked} = useContext(CategoryContext);
-
   // State
   const [removing, setRemove] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -33,18 +29,19 @@ const GlobalProvider = (props: any) => {
     await Storage.clear();
   };
 
-  const removeAllChecked = () => {
-    categoriesList.forEach((cat, i) => {
-      removeCatChecked(i);
-    });
+  const removeAnimation = () => {
+    setRemove(true);
+    const timer = setTimeout(() => {
+      setRemove(false);
+      clearTimeout(timer);
+    }, 300);
   };
 
   return (
     <GlobalContext.Provider
       value={{
         removing,
-        setRemove,
-        removeAllChecked,
+        removeAnimation,
         reset,
         darkMode,
         toggleDarkMode,

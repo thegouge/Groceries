@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Plugins} from "@capacitor/core";
 
-import {CategoryClass} from "../lib/interfaces";
+import {CategoryClass, ItemClass} from "../lib/interfaces";
 import {defaultCategoriesList} from "../lib/defaultData";
 
 const {Storage} = Plugins;
@@ -9,6 +9,7 @@ const {Storage} = Plugins;
 interface catContextProps {
   categoriesList: CategoryClass[];
   addCategory: (category: any) => void;
+  addItem: (name: string, quantity: string, category: number) => void;
   removeCategory: (id: number) => void;
   resetCats: () => void;
   checkItem: (catIndex: number, itemIndex: number) => void;
@@ -62,17 +63,28 @@ const CategoryProvider = (props: any) => {
     setCategoriesList(defaultCategoriesList);
   };
 
-  const addItem = () => {};
+  const addItem = (name: string, quantity: string, category: number) => {
+    const newList = categoriesList.slice();
+    const cat = newList[category];
+    cat.list.push({
+      id: cat.list.length,
+      name: name,
+      quantity: quantity,
+      isChecked: false,
+    } as ItemClass);
+
+    newList[category] = cat;
+    setCategoriesList(newList);
+    saveCategories(newList);
+  };
 
   const checkItem = (catIndex: number, itemIndex: number) => {
-    console.time("check Item");
     const newCatList = categoriesList.slice();
     const cat = newCatList[catIndex];
     cat.list[itemIndex] = Object.assign(cat.list[itemIndex], {isChecked: true});
 
     newCatList[catIndex] = cat;
     setCategoriesList(newCatList);
-    console.timeEnd("check Item");
   };
 
   const removeCatChecked = (catIndex: number) => {
@@ -83,6 +95,7 @@ const CategoryProvider = (props: any) => {
 
     newCatList[catIndex] = cat;
     setCategoriesList(newCatList);
+    saveCategories(newCatList);
   };
 
   // Render
@@ -95,6 +108,7 @@ const CategoryProvider = (props: any) => {
       value={{
         categoriesList,
         addCategory,
+        addItem,
         removeCategory,
         resetCats,
         checkItem,

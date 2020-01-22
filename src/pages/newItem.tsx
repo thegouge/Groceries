@@ -36,7 +36,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
   history,
 }) => {
   // Context
-  const {categoriesList, addCategory} = useContext(CategoryContext);
+  const {categoriesList, addCategory, addItem} = useContext(CategoryContext);
 
   // State
   const [addType, setAddType] = useState(match.params.type);
@@ -66,11 +66,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
         break;
 
       case "grocery":
-        // addItem({
-        //   name: name,
-        //   quantity: quantity,
-        //   category: category,
-        // });
+        addItem(name, quantity, category);
         break;
 
       default:

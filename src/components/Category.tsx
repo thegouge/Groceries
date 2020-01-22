@@ -33,10 +33,11 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
   };
 
   // Render
-  const catItems = category.list.map((item: ItemClass) => (
+  const catItems = category.list.map((item: ItemClass, index) => (
     <Item
       key={item.name}
       item={item}
+      index={index}
       isCatReorder={isCatReorder}
       catIndex={category.id}
     />
