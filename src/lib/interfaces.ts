@@ -9,7 +9,6 @@ export interface CategoryClass {
   name: string;
   color: string;
   list: ItemClass[];
-  // icon: any;
 }
 
 export interface ItemClass {

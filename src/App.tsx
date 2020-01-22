@@ -25,7 +25,6 @@ import "./theme/variables.css";
 import Home from "./pages/Home";
 import NewItem from "./pages/newItem";
 import CategoryPage from "./pages/CategoryPage";
-import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 
 /* Seperate Components */
@@ -55,7 +54,6 @@ const App: React.FC = () => {
                 <Route exact path="/new/:type/:initial" component={NewItem} />
                 <Route exact path="/category/:id" component={CategoryPage} />
                 <Route exact path="/settings" component={Settings} />
-                <Route exact path="/login" component={Login} />
                 <Redirect exact from="/" to="/home" />
               </IonRouterOutlet>
             </CategoryProvider>

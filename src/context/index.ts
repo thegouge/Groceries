@@ -8,5 +8,5 @@ export {
   UserContext,
   UserProvider,
   GlobalContext,
-  GlobalProvider,
+  GlobalProvider
 };
