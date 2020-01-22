@@ -19,7 +19,7 @@ import {
 } from "@ionic/react";
 import {ItemReorderEventDetail} from "@ionic/core";
 import {RouteComponentProps} from "react-router";
-import {add, options} from "ionicons/icons";
+import {add, options, returnLeft} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
@@ -30,8 +30,9 @@ import Category from "../components/Category";
 
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
-  const {categoriesList, removeCatChecked} = useContext(CategoryContext);
-  const {removeAnimation} = useContext(GlobalContext);
+  const {categoriesList, setCategoriesList} = useContext(CategoryContext);
+  const {removeChecked} = useContext(ItemContext);
+  const {toggleDarkMode} = useContext(GlobalContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
@@ -43,8 +44,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   };
 
   const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
-    console.log("Dragged from index", event.detail.from, "to", event.detail.to);
-    event.detail.complete();
+    setCategoriesList(event.detail.complete(categoriesList));
   };
 
   const removeAllChecked = () => {
@@ -63,7 +63,9 @@ const Home: React.FC<RouteComponentProps> = () => {
       />
     );
     if (isCatReorder) {
-      return <IonReorder>{catCard}</IonReorder>;
+      return (
+        <IonReorder key={`${category.name}-reorder`}>{catCard}</IonReorder>
+      );
     } else {
       return catCard;
     }
@@ -76,7 +78,13 @@ const Home: React.FC<RouteComponentProps> = () => {
           <IonMenuButton slot="start" />
           <IonTitle>Groceries</IonTitle>
           <IonButtons slot="end">
-            {/* <IonIcon size="large" onClick={toggleDarkMode} icon={moon} /> */}
+            {isCatReorder && (
+              <IonIcon
+                size="large"
+                onClick={toggleCatReorder}
+                icon={returnLeft}
+              />
+            )}
             <IonIcon
               size="large"
               onClick={() => setShowOptions(true)}
@@ -100,7 +108,7 @@ const Home: React.FC<RouteComponentProps> = () => {
                     toggleCatReorder();
                     setShowOptions(false);
                   }}>
-                  Edit
+                  Rearrange Categories
                 </IonItem>
               </IonList>
             </IonPopover>
@@ -110,7 +118,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       <IonContent>
         <IonReorderGroup disabled={!isCatReorder} onIonItemReorder={doReorder}>
           {categoryList}
-          <IonCard routerLink={"/new/category/0"}>
+          <IonCard routerLink={"/new/category/0"} key="new-cat">
             <IonItem>
               <IonIcon slot="start" icon={add} />
               <IonLabel>add new Category</IonLabel>
