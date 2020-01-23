@@ -31,7 +31,7 @@ import Category from "../components/Category";
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
   const {categoriesList, removeCatChecked} = useContext(CategoryContext);
-  const {removeAnimation} = useContext(GlobalContext);
+  const {toggleRemove} = useContext(GlobalContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
@@ -48,9 +48,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   };
 
   const removeAllChecked = () => {
-    categoriesList.forEach((cat, i) => {
-      removeCatChecked(i);
-    });
+    toggleRemove();
   };
 
   // Render

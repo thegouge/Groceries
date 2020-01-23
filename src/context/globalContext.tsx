@@ -6,7 +6,7 @@ const {Storage} = Plugins;
 
 interface globalContextProps {
   removing: boolean;
-  removeAnimation: () => void;
+  toggleRemove: () => void;
   reset: () => Promise<any>;
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -29,19 +29,15 @@ const GlobalProvider = (props: any) => {
     await Storage.clear();
   };
 
-  const removeAnimation = () => {
-    setRemove(true);
-    const timer = setTimeout(() => {
-      setRemove(false);
-      clearTimeout(timer);
-    }, 300);
+  const toggleRemove = () => {
+    setRemove(!removing);
   };
 
   return (
     <GlobalContext.Provider
       value={{
         removing,
-        removeAnimation,
+        toggleRemove,
         reset,
         darkMode,
         toggleDarkMode,

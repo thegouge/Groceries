@@ -19,7 +19,7 @@ export const Item: React.FC<Props> = ({
 }) => {
   // Context
   const {removing} = useContext(GlobalContext);
-  const {checkItem} = useContext(CategoryContext);
+  const {checkItem, removeItem} = useContext(CategoryContext);
 
   // State
   const [isChecked, toggleCheck] = useState(item.isChecked);
@@ -36,7 +36,10 @@ export const Item: React.FC<Props> = ({
       in={!removing || !item.isChecked}
       timeout={300}
       classNames={"item"}
-      unmountOnExit>
+      unmountOnExit
+      onExited={() => {
+        removeItem(catIndex, index);
+      }}>
       <IonItem key={`${item.name}`}>
         <IonCheckbox
           slot="start"

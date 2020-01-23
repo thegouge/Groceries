@@ -91,6 +91,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
           <IonItem>
             <IonLabel position="floating">Grocery Name</IonLabel>
             <IonInput
+              autofocus={true}
               onIonChange={(e: any) => setName(e.detail.value)}></IonInput>
           </IonItem>
           <IonItem>
@@ -131,6 +132,7 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
           <IonItem>
             <IonLabel position="floating">Category Name</IonLabel>
             <IonInput
+              autofocus={true}
               onIonChange={(e: any) => setName(e.detail.value)}></IonInput>
           </IonItem>
 
