@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import {Plugins} from "@capacitor/core";
 
 import {CategoryClass, ItemClass} from "../lib/interfaces";
 import {defaultCategoriesList} from "../lib/defaultData";
-import {GlobalContext} from "./globalContext";
 
 const {Storage} = Plugins;
 
@@ -15,15 +14,12 @@ interface catContextProps {
   resetCats: () => void;
   checkItem: (catIndex: number, itemIndex: number) => void;
   removeCatChecked: (catIndex: number) => void;
-  removeItem: (catIndex: number, itemIndex: number) => void;
+  removeItems: (catIndex: number) => void;
 }
 
 const CategoryContext = React.createContext({} as catContextProps);
 
 const CategoryProvider = (props: any) => {
-  // Context
-  const {toggleRemove} = useContext(GlobalContext);
-
   // State
   const [categoriesList, setCategoriesList] = useState(defaultCategoriesList);
 
@@ -92,13 +88,15 @@ const CategoryProvider = (props: any) => {
     setCategoriesList(newCatList);
   };
 
-  const removeItem = (catIndex: number, itemIndex: number) => {
+  const removeItems = (catIndex: number) => {
     const newList = categoriesList.slice();
 
-    newList[catIndex].list.splice(itemIndex, 1);
+    newList[catIndex].list = newList[catIndex].list.filter(
+      (item) => !item.isChecked
+    );
+
     setCategoriesList(newList);
     saveCategories(newList);
-    toggleRemove();
   };
 
   const removeCatChecked = (catIndex: number) => {
@@ -127,7 +125,7 @@ const CategoryProvider = (props: any) => {
         resetCats,
         checkItem,
         removeCatChecked,
-        removeItem,
+        removeItems,
       }}>
       {props.children}
     </CategoryContext.Provider>

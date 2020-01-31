@@ -8,14 +8,13 @@ import {
   IonMenuButton,
   IonTitle,
   IonButtons,
-  IonButton,
   IonIcon,
   IonPopover,
   IonList,
   IonItem,
 } from "@ionic/react";
 
-import {CategoryContext, GlobalContext} from "../context";
+import {CategoryContext} from "../context";
 import {ErrorPage} from "./ErrorPage";
 import Category from "../components/Category";
 import {options} from "ionicons/icons";
@@ -26,17 +25,19 @@ interface queryProps {
 
 const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
   // Context
-  const {categoriesList, removeCatChecked} = useContext(CategoryContext);
-  const {toggleRemove} = useContext(GlobalContext);
+  const {categoriesList} = useContext(CategoryContext);
 
   // State
   const selectedCategory = categoriesList.find(
     (category) => `${category.id}` === match.params.id
   );
   const [showOptions, setShowOptions] = useState(false);
+  const [catRemove, setCatRemove] = useState(false);
 
   // Methods
-  const handleRemoveAnimation = () => {};
+  const handleRemove = () => {
+    setCatRemove(true);
+  };
 
   // Render
   if (!selectedCategory) {
@@ -63,7 +64,7 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
                 <IonItem
                   button
                   onClick={() => {
-                    removeCatChecked(selectedCategory.id);
+                    handleRemove();
                     setShowOptions(false);
                   }}>
                   Delete Checked
@@ -84,7 +85,7 @@ const CategoryPage = ({match}: RouteComponentProps<queryProps>) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <Category category={selectedCategory} />
+        <Category category={selectedCategory} removing={catRemove} />
       </IonContent>
     </IonPage>
   );

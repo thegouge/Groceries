@@ -23,19 +23,19 @@ import {add, options} from "ionicons/icons";
 
 /* Data Init */
 import {CategoryClass} from "../lib/interfaces";
-import {CategoryContext, GlobalContext} from "../context";
+import {CategoryContext} from "../context";
 
 /* Components */
 import Category from "../components/Category";
 
 const Home: React.FC<RouteComponentProps> = () => {
   // Context
-  const {categoriesList, removeCatChecked} = useContext(CategoryContext);
-  const {toggleRemove} = useContext(GlobalContext);
+  const {categoriesList} = useContext(CategoryContext);
 
   // State
   const [isCatReorder, setCatReorder] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [removing, setRemoving] = useState(false);
 
   // Methods
   const toggleCatReorder = () => {
@@ -48,7 +48,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   };
 
   const removeAllChecked = () => {
-    toggleRemove();
+    setRemoving(true);
   };
 
   // Render
@@ -56,6 +56,7 @@ const Home: React.FC<RouteComponentProps> = () => {
     const catCard = (
       <Category
         category={category}
+        removing={removing}
         key={`${category.name}-card`}
         isCatReorder={isCatReorder}
       />

@@ -9,7 +9,7 @@ interface userContextProps {
 
 const UserContext = React.createContext({} as userContextProps);
 const UserProvider = (props: any) => {
-  const [currentUser, setCurrentUsers] = useState(defaultUser);
+  const [currentUser] = useState(defaultUser);
 
   return (
     <UserContext.Provider value={{currentUser}}>

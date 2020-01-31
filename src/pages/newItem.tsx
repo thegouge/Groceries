@@ -48,11 +48,12 @@ const NewItem: React.FC<RouteComponentProps<QueryProps>> = ({
 
   // Methods
   const resetState = () => {
-    setAddType(match.params.type);
+    setAddType("");
     setName("");
     setQuantity("0");
     setCategory(0);
     setCatColor("#FFFFFF");
+    setCategory(0);
   };
 
   const addInput = () => {

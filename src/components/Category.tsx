@@ -7,21 +7,25 @@ import {
   IonLabel,
   IonReorder,
   IonIcon,
-  IonTitle,
 } from "@ionic/react";
 
 import {CategoryClass, ItemClass} from "../lib/interfaces";
 import {reorder, add, trash} from "ionicons/icons";
 import {CategoryContext} from "../context";
 import {Item} from "./Item";
-import {RouteComponentProps, withRouter, useHistory} from "react-router";
+import {useHistory} from "react-router";
 
 interface Props {
   category: CategoryClass;
+  removing: boolean;
   isCatReorder?: boolean;
 }
 
-const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
+const Category: React.FC<Props> = ({
+  category,
+  removing,
+  isCatReorder = false,
+}) => {
   // Context
   const {removeCategory} = useContext(CategoryContext);
   const history = useHistory();
@@ -40,6 +44,7 @@ const Category: React.FC<Props> = ({category, isCatReorder = false}) => {
       index={index}
       isCatReorder={isCatReorder}
       catIndex={category.id}
+      removing={removing}
     />
   ));
 
